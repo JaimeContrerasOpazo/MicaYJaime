@@ -8,8 +8,8 @@
 <meta property="og:title" content="Mica & Jaime · 21 Marzo 2026" />
 <meta property="og:description" content="Sábado 21 de marzo de 2026 · Casona Macul, Santiago. ¡Reserva la fecha!" />
 <meta property="og:type" content="website" />
-<meta property="og:image" content="Logo_Sobre_transparente.png" />
-<link rel="icon" type="image/png" href="Logo_Sobre_transparente.png" />
+<meta property="og:image" content="Logo_Definitivo.png" />
+<link rel="icon" type="image/png" href="Logo_Definitivo.png" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
@@ -72,17 +72,13 @@ body.opened .bg-floral{opacity:0;}
   box-shadow:0 10px 20px rgba(0,0,0,.1); padding:2%;
 }
 
-/* ===== Monograma sin “fondo ajedrez”: máscara CSS con fallback ===== */
+/* ===== Monograma sin “fondo ajedrez”: usa Logo_Sobre_transparente.png como MÁSCARA ===== */
 .seal{
   width:min(60%,480px); aspect-ratio:1/1;
   background:var(--dorado);
-  /* fallback visual si no hay mask: nada (lo oculta .no-mask) */
   display:block;
 }
-.seal-fallback{
-  width:min(60%,480px); aspect-ratio:1/1;
-  display:none; /* solo se muestra con .no-mask */
-}
+/* Navegadores con máscara */
 @supports (-webkit-mask-image: url("")) or (mask-image: url("")){
   .seal{
     -webkit-mask-image:url('Logo_Sobre_transparente.png');
@@ -92,9 +88,10 @@ body.opened .bg-floral{opacity:0;}
     -webkit-mask-size:contain;     mask-size:contain;
   }
 }
-/* Si el navegador NO soporta máscaras, usamos la imagen PNG transparente */
+/* Fallback: para evitar tablero, ocultamos el PNG si no hay máscara */
+.seal-fallback{display:none;}
 body.no-mask .seal{display:none;}
-body.no-mask .seal-fallback{display:block;}
+body.no-mask .seal-fallback{display:none;}
 
 /* Animaciones de apertura */
 .envelope.open .flap{transform:rotateX(180deg);}
@@ -130,11 +127,11 @@ body.no-mask .seal-fallback{display:block;}
 .hero .btn{ padding:8px 12px; font-size:.82rem; border-radius:999px; box-shadow:0 3px 8px rgba(0,0,0,.13); }
 @media (max-width:480px){ .hero .btn{padding:7px 11px;font-size:.8rem;} .countdown .tile{width:60px;height:60px;} .countdown .num{font-size:1.2rem;} }
 
-/* Collage: compacto, sin huecos */
+/* Collage: compacto, sin huecos (módulo más chico) */
 .collage{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-  grid-auto-rows:160px;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  grid-auto-rows:140px;
   grid-auto-flow:dense;
   gap:6px;
   margin-top:1.5rem;
@@ -148,7 +145,11 @@ body.no-mask .seal-fallback{display:block;}
   box-shadow:0 3px 8px rgba(0,0,0,0.1);
   transition:transform .25s ease, box-shadow .25s ease;
 }
-.collage img.obj-top{ object-position:center top; } /* PARA mostrar la parte alta */
+.collage img.face{                 /* caras visibles y más chicas */
+  object-position:center top;
+  grid-column:auto !important;
+  grid-row:auto !important;
+}
 .collage img:hover{ transform:scale(1.03); box-shadow:0 6px 12px rgba(0,0,0,0.15); }
 .collage .wide{grid-column:span 2;}
 .collage .tall{grid-row:span 2;}
@@ -185,9 +186,10 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:24px 0 12px;}
       <div class="base"></div>
       <div class="flap"></div>
       <div class="paper">
-        <!-- Monograma: máscara dorada + fallback PNG transparente -->
+        <!-- Monograma: máscara dorada usando Logo_Sobre_transparente.png -->
         <div class="seal" id="seal" title="Abrir invitación"></div>
-        <img class="seal-fallback" src="Logo_Definitivo.png" alt="Monograma M/J" />
+        <!-- Fallback deshabilitado para evitar tablero -->
+        <img class="seal-fallback" src="Logo_Sobre_transparente.png" alt="Monograma M/J" />
       </div>
     </div>
     <button class="btn" id="openBtn">Abrir invitación</button>
@@ -213,18 +215,18 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:24px 0 12px;}
     </div>
   </section>
 
-  <!-- Collage: sin huecos + dos fotos con parte alta visible -->
+  <!-- Collage: sin huecos + caras visibles y más chicas -->
   <section class="card fade-in">
     <div class="title">Nuestra historia</div>
     <div class="collage">
       <img src="IMG_8695.JPG" alt="Mica y Jaime" class="tall" />
       <img src="IMG_8710.JPG" alt="Mica y Jaime" />
-      <img src="Foto_Lima.JPEG" alt="Mica y Jaime" class="wide obj-top" />
+      <img src="Foto_Lima.JPEG" alt="Mica y Jaime" class="face" />
       <img src="San_Andre.JPEG" alt="Mica y Jaime" />
       <img src="MATRI.png" alt="Mica y Jaime" class="big" />
       <img src="QUILLON.png" alt="Mica y Jaime" />
       <img src="Foto_reemplazo.png" alt="Mica y Jaime" />
-      <img src="RIO_TIGRE.JPEG" alt="Mica y Jaime" class="wide obj-top" />
+      <img src="RIO_TIGRE.JPEG" alt="Mica y Jaime" class="face" />
       <img src="LAPA.png" alt="Mica y Jaime" />
       <img src="coliumo.JPEG" alt="Mica y Jaime" />
     </div>
@@ -274,7 +276,7 @@ const app  = document.getElementById('app');
 const openBtn = document.getElementById('openBtn');
 const seal = document.getElementById('seal');
 
-/* Soporte de máscaras: si no hay, usa PNG transparente como fallback */
+/* Soporte de máscaras: si no hay, evita mostrar el PNG con tablero */
 const supportsMask = CSS.supports('(-webkit-mask-image: url(""))') || CSS.supports('(mask-image: url(""))');
 if(!supportsMask){ body.classList.add('no-mask'); }
 
