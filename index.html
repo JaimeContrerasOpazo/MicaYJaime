@@ -33,7 +33,7 @@ img{max-width:100%;height:auto;}
 .fade-in{opacity:0;animation:fadeIn 1.6s ease forwards;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:none;}}
 
-/* Fondo floral crossfade */
+/* Fondo floral crossfade para la página del sobre */
 .bg-floral{
   position:fixed; inset:0;
   background:url('floral-sobre.png') center/cover no-repeat;
@@ -71,33 +71,17 @@ body.opened .bg-floral{opacity:0;}
   background:var(--crema);border-radius:12px;display:grid;place-items:center;
   box-shadow:0 10px 20px rgba(0,0,0,.1); padding:2%;
 }
-
-/* ===== Monograma sin “fondo ajedrez”: usa Logo_Sobre_transparente.png como MÁSCARA ===== */
-.seal{
-  width:min(60%,480px); aspect-ratio:1/1;
-  background:var(--dorado);
+.paper .logo-paper{
+  width:min(70%,520px);
   display:block;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.08));
+  cursor:pointer;
 }
-/* Navegadores con máscara */
-@supports (-webkit-mask-image: url("")) or (mask-image: url("")){
-  .seal{
-    -webkit-mask-image:url('Logo_Sobre_transparente.png');
-    mask-image:url('Logo_Sobre_transparente.png');
-    -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
-    -webkit-mask-position:center;  mask-position:center;
-    -webkit-mask-size:contain;     mask-size:contain;
-  }
-}
-/* Fallback: para evitar tablero, ocultamos el PNG si no hay máscara */
-.seal-fallback{display:none;}
-body.no-mask .seal{display:none;}
-body.no-mask .seal-fallback{display:none;}
 
-/* Animaciones de apertura */
 .envelope.open .flap{transform:rotateX(180deg);}
 .envelope.open .paper{transform:translateY(-25%);transition:transform 1s ease;}
 
-/* Cards */
+/* Cards contenedor */
 .wrap{width:min(920px,96vw);margin:0 auto;padding:2rem 1rem;position:relative;z-index:1;}
 .card{
   background:var(--crema);
@@ -117,12 +101,11 @@ body.no-mask .seal-fallback{display:none;}
 .hero .date{font-size:1.1rem;margin-bottom:1.2rem;color:var(--verde);}
 .hero .monogram img{width:140px;margin:1.2rem auto;filter:drop-shadow(0 3px 4px rgba(0,0,0,.1));}
 
-/* Countdown */
+/* Countdown + botones chicos */
 .countdown{ display:flex;justify-content:center;gap:12px; margin:0.8rem auto 1rem;flex-wrap:wrap; }
 .countdown .tile{ background:var(--crema);border:1px solid var(--dorado);border-radius:12px;width:64px;height:64px;display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:0 4px 10px rgba(0,0,0,.08); }
 .countdown .num{font-size:1.3rem;font-weight:700;color:var(--dorado);}
 .countdown .lab{font-size:.75rem;color:var(--verde);}
-/* Botones más pequeños SOLO en el hero */
 .hero .actions{margin-top:.6rem;display:flex;justify-content:center;flex-wrap:wrap;gap:8px;}
 .hero .btn{ padding:8px 12px; font-size:.82rem; border-radius:999px; box-shadow:0 3px 8px rgba(0,0,0,.13); }
 @media (max-width:480px){ .hero .btn{padding:7px 11px;font-size:.8rem;} .countdown .tile{width:60px;height:60px;} .countdown .num{font-size:1.2rem;} }
@@ -145,7 +128,7 @@ body.no-mask .seal-fallback{display:none;}
   box-shadow:0 3px 8px rgba(0,0,0,0.1);
   transition:transform .25s ease, box-shadow .25s ease;
 }
-.collage img.face{                 /* caras visibles y más chicas */
+.collage img.face{ /* caras visibles y más chicas */
   object-position:center top;
   grid-column:auto !important;
   grid-row:auto !important;
@@ -186,10 +169,8 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:24px 0 12px;}
       <div class="base"></div>
       <div class="flap"></div>
       <div class="paper">
-        <!-- Monograma: máscara dorada usando Logo_Sobre_transparente.png -->
-        <div class="seal" id="seal" title="Abrir invitación"></div>
-        <!-- Fallback deshabilitado para evitar tablero -->
-        <img class="seal-fallback" src="Logo_Sobre_transparente.png" alt="Monograma M/J" />
+        <!-- Logo con flores (mismo de la segunda parte) -->
+        <img id="paperLogo" class="logo-paper" src="Logo_Definitivo.png" alt="Monograma M/J">
       </div>
     </div>
     <button class="btn" id="openBtn">Abrir invitación</button>
@@ -274,16 +255,11 @@ const body = document.body;
 const env  = document.getElementById('envelope');
 const app  = document.getElementById('app');
 const openBtn = document.getElementById('openBtn');
-const seal = document.getElementById('seal');
-
-/* Soporte de máscaras: si no hay, evita mostrar el PNG con tablero */
-const supportsMask = CSS.supports('(-webkit-mask-image: url(""))') || CSS.supports('(mask-image: url(""))');
-if(!supportsMask){ body.classList.add('no-mask'); }
+const paperLogo = document.getElementById('paperLogo');
 
 function scrollToInvite(){
   document.getElementById('hero').scrollIntoView({behavior:'smooth', block:'start'});
 }
-
 function openInvite(){
   env.classList.add('open');
   body.classList.add('opened'); // crossfade del fondo floral
@@ -291,13 +267,12 @@ function openInvite(){
     app.classList.remove('hidden');
     const cards=document.querySelectorAll('.card,.hero,footer');
     cards.forEach((c,i)=>{c.style.animationDelay=(i*0.3)+'s';});
-    scrollToInvite(); // auto scroll suave
+    scrollToInvite();
   },800);
 }
-
 env.addEventListener('click', openInvite);
 openBtn.addEventListener('click', openInvite);
-seal.addEventListener('click', openInvite);
+paperLogo.addEventListener('click', openInvite);
 env.addEventListener('keypress', (e)=>{ if(e.key==='Enter'||e.key===' '){ openInvite(); } });
 
 // Countdown (21/03/2026 16:00 CL)
