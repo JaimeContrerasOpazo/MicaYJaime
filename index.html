@@ -80,7 +80,7 @@ body.opened .bg-floral{opacity:0;}
   display:grid;place-items:center;
   box-shadow:0 10px 20px rgba(0,0,0,.1);
   padding:2%;
-  overflow:hidden;                   /* evita que la frase se “escape” */
+  overflow:hidden;                   /* evita que la frase se escape */
 }
 /* Contenido dentro del papel del sobre */
 .paper-content{
@@ -96,6 +96,10 @@ body.opened .bg-floral{opacity:0;}
   font-size:clamp(1.1rem,3.2vw,1.6rem);line-height:1.15;
 }
 
+/* Animación apertura */
+.envelope.open .flap{transform:rotateX(180deg);}
+.envelope.open .paper{transform:translateY(-25%);transition:transform 1s ease;}
+
 /* --------- Ajustes específicos para móviles --------- */
 @media (max-width:480px){
   .envelope{ aspect-ratio: 4/3; }       /* forma más alta y estable en teléfono */
@@ -103,12 +107,8 @@ body.opened .bg-floral{opacity:0;}
     left:7%; right:7%;
     top:38%; bottom:8%;                 /* baja un poco el papel y deja espacio */
   }
-  .paper-content img{
-    width:min(28vmin,136px);            /* logo un poco más pequeño */
-  }
-  .paper-note{
-    font-size:1rem;                     /* frase más contenida */
-  }
+  .paper-content img{ width:min(28vmin,136px); }
+  .paper-note{ font-size:1rem; }
 }
 
 /* Cards contenedor */
@@ -122,10 +122,11 @@ body.opened .bg-floral{opacity:0;}
   padding:clamp(18px,4vw,28px);
   margin:26px auto;
 }
-.wrap > .card:last-of-type{margin-bottom:16px;} /* elimina “espacio” extra en desktop */
+.wrap > .card:last-of-type{margin-bottom:16px;} /* elimina espacio extra en desktop */
 .title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2rem);color:var(--dorado);margin-bottom:.4rem;}
 
 /* HERO como CARD */
+#hero{ scroll-margin-top:14px; } /* que no quede “cortado” al llegar por scroll */
 .hero{color:var(--verde);}
 .hero .script{font-family:'Great Vibes',cursive;font-size:2.2rem;color:var(--cobre);}
 .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,6vw,3.2rem);color:var(--dorado);margin:.4rem 0;}
@@ -141,7 +142,7 @@ body.opened .bg-floral{opacity:0;}
 .hero .btn{ padding:8px 12px; font-size:.82rem; border-radius:999px; box-shadow:0 3px 8px rgba(0,0,0,.13); }
 @media (max-width:480px){ .hero .btn{padding:7px 11px;font-size:.8rem;} .countdown .tile{width:60px;height:60px;} .countdown .num{font-size:1.2rem;} }
 
-/* Collage: compacto, sin huecos (grid Masonry-like) */
+/* Collage */
 .collage{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
@@ -186,6 +187,15 @@ body.opened .bg-floral{opacity:0;}
 .swatch{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:92px;}
 .swatch .chip{width:38px;height:38px;border-radius:50%;box-shadow:0 2px 5px rgba(0,0,0,.08);border:1px solid #d8d0c3;}
 @media(max-width:600px){.dresscode .color-restrictions{gap:20px;}.dresscode .circle{width:36px;height:36px;} .swatch{min-width:84px;}}
+
+/* Texto bajo Playlist */
+.playlist-note{
+  margin-top:.5rem;
+  font-family:'Playfair Display',serif;
+  font-size:1rem;
+  color:rgba(184,104,48,0.95); /* var(--cobre) suavizado */
+}
+@media(max-width:480px){ .playlist-note{font-size:.95rem;} }
 
 footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
 </style>
@@ -263,10 +273,9 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     <div class="title">Código de vestimenta 👔✨</div>
     <p>Formal elegante 🌹 — Gala o semi gala.<br>Evita los colores reservados:</p>
 
-    <div class="color-restrictions">
+    <div class="color-restrictions"></div>
 
-      </div>
-       <div class="title" style="font-size:1.3rem;margin-top:.6rem;color:var(--verde)">Tonos reservados corbata novio</div>
+    <div class="title" style="font-size:1.3rem;margin-top:.6rem;color:var(--verde)">Tonos reservados corbata novio</div>
     <div class="swatches">
       <div class="color">
         <div class="circle" style="background-color:#800020;border-color:#5d0016;"></div>
@@ -287,18 +296,22 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     <p style="opacity:.85;font-size:.95rem;margin-top:.6rem;">(El tono claro se reserva para la novia, y el burdeo en corbata para el novio 💒)</p>
   </section>
 
-<section class="card fade-in">
-  <div class="title">Lista de regalos 🎁</div>
-  <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:.4rem;">
-    <a class="btn" href="https://novios.falabella.com/info-evento/evento?codigoEvento=2100121" 
-       target="_blank" rel="noopener">Ver lista</a>
-    <!-- Abre el PDF en una nueva pestaña -->
-    <a class="btn" href="Datos_regalo_Mica_Jaime.pdf" 
-       target="_blank" rel="noopener">Datos bancarios</a>
-  </div>
-</section>
+  <section class="card fade-in">
+    <div class="title">Lista de regalos 🎁</div>
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:.4rem;">
+      <a class="btn" href="https://novios.falabella.com/info-evento/evento?codigoEvento=2100121" 
+         target="_blank" rel="noopener">Ver lista</a>
+      <!-- Abre el PDF en una nueva pestaña -->
+      <a class="btn" href="Datos_regalo_Mica_Jaime.pdf" target="_blank" rel="noopener">Datos bancarios</a>
+    </div>
+  </section>
 
-  <section class="card fade-in"><div class="title">Playlist 🎵</div><a <div class="swatches">class="btn" href="https://open.spotify.com/playlist/1yQ3SckD5XpexViWkWlKaM" target="_blank" rel="noopener">Abrir Playlist</a></section>
+  <section class="card fade-in">
+    <div class="title">Playlist 🎵</div>
+    <a class="btn" href="https://open.spotify.com/playlist/1yQ3SckD5XpexViWkWlKaM" target="_blank" rel="noopener">Abrir Playlist</a>
+    <div class="playlist-note">Comparte la canción que no debe faltar</div>
+  </section>
+
   <section class="card fade-in"><div class="title">Confirmar asistencia 💌</div><a class="btn" href="https://forms.gle/tsauL7QgjHBVs5Ye6" target="_blank" rel="noopener">Confirmar aquí</a></section>
   <section class="card fade-in"><div class="title">Dudas o consultas</div><a class="btn" href="https://wa.me/56982296127" target="_blank" rel="noopener">WhatsApp Mica</a><a class="btn" href="https://wa.me/56989895843" target="_blank" rel="noopener">WhatsApp Jaime</a></section>
   <section class="card fade-in"><div class="title">Agregar al calendario 📅</div><a class="btn" href="Matri Mica&Jaime - Casona Macul.ics">Agregar al calendario</a></section>
@@ -316,18 +329,23 @@ const openBtn = document.getElementById('openBtn'); // puede no existir (comenta
 const paperLogo = document.getElementById('paperLogo');
 
 function scrollToInvite(){
-  document.getElementById('hero').scrollIntoView({behavior:'smooth', block:'start'});
+  const hero = document.getElementById('hero');
+  hero.scrollIntoView({behavior:'smooth', block:'start'});
 }
+
 function openInvite(){
   env.classList.add('open');
   body.classList.add('opened'); // crossfade del fondo floral
+  // Espera a que termine la animación y el layout esté listo antes de scrollear
   setTimeout(()=>{
     app.classList.remove('hidden');
     const cards=document.querySelectorAll('.card,.hero,footer');
     cards.forEach((c,i)=>{c.style.animationDelay=(i*0.3)+'s';});
-    scrollToInvite();
-  },800);
+    // doble RAF evita “cortes” en móviles al calcular el offset
+    requestAnimationFrame(()=>requestAnimationFrame(()=>scrollToInvite()));
+  }, 900);
 }
+
 env.addEventListener('click', openInvite);
 if (openBtn) openBtn.addEventListener('click', openInvite);
 if (paperLogo) paperLogo.addEventListener('click', openInvite);
