@@ -3,116 +3,116 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Mica & Jaime — Invitación</title>
+  <title>Mica & Jaime · 21 Marzo 2026</title>
   <meta name="description" content="Invitación digital de Mica & Jaime. Sábado 21 de marzo de 2026 · Casona Macul, Santiago." />
-  <meta property="og:title" content="Mica & Jaime — Invitación" />
+  <meta property="og:title" content="Mica & Jaime · 21 Marzo 2026" />
   <meta property="og:description" content="Sábado 21 de marzo de 2026 · Casona Macul, Santiago. ¡Reserva la fecha!" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="Logo_Sobre_transparente.png" />
-  <meta name="theme-color" content="#6D745C" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/png" href="Logo_Sobre_transparente.png" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --verde:#6D745C; --terracota:#C46E58; --cobre:#B86830;
-      --dorado:#CBA979; --gris:#BCB4A3; --crema:#f7f3eb;
-      --bg:#f6f2ec; --text:var(--verde); --muted:var(--gris);
-      --outline:#e6ded5; --safe-top:env(safe-area-inset-top);
-      --safe-bottom:env(safe-area-inset-bottom);
+      --dorado:#CBA979; --crema:#f7f3eb; --fondo:#f5e9d4;
+      --outline:#d9c9af; --text:#5b5a4f;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:var(--bg);color:var(--text);
-      font-family:'Montserrat',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
-    a{color:inherit;text-decoration:none;}
+    *{box-sizing:border-box;}
+    html,body{
+      height:100%;
+      margin:0;
+      background:var(--fondo) url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAC5...') repeat;
+      background-size:cover;
+      color:var(--text);
+      font-family:'Montserrat',sans-serif;
+      overflow-x:hidden;
+    }
+    a{text-decoration:none;color:inherit;}
+    img{max-width:100%;height:auto;}
 
-    /* SOBRE ANIMADO */
-    .intro{min-height:100dvh;display:grid;place-items:center;padding:24px;
-      padding-top:calc(24px + var(--safe-top));position:relative;}
-    .intro:before{content:"";position:absolute;inset:0;
-      background:url('Fondo_Invite.png') center/cover no-repeat;opacity:.5;}
-    .envelope-area{display:grid;place-items:center;gap:14px;z-index:1;}
-    .envelope{position:relative;width:min(520px,90vw);aspect-ratio:4/3;cursor:pointer;}
-    .envelope .base{position:absolute;inset:0;background:var(--dorado);
-      border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.16);}
-    .envelope .flap{position:absolute;inset:0 0 50% 0;
-      background:linear-gradient(to bottom,#bfa165,var(--dorado));
-      clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;
-      transition:transform .9s cubic-bezier(.19,1,.22,1);}
-    .envelope .paper{position:absolute;left:6%;right:6%;bottom:6%;top:30%;
-      background:#CBA979;border-radius:12px;display:grid;place-items:center;
-      box-shadow:0 10px 20px rgba(0,0,0,.1);padding:18px;}
-    .paper .logo{max-width:60%;height:auto;opacity:.98;mix-blend-mode:multiply;
-      filter:drop-shadow(0 2px 3px rgba(0,0,0,.08));}
+    /* Animaciones */
+    .fade-in{opacity:0;animation:fadeIn 1.6s ease forwards;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:none;}}
+
+    /* Envelope */
+    .intro{min-height:100dvh;display:grid;place-items:center;position:relative;}
+    .envelope-area{display:grid;place-items:center;gap:16px;z-index:2;}
+    .envelope{position:relative;width:min(520px,90vw);aspect-ratio:4/3;cursor:pointer;perspective:1000px;}
+    .envelope .base{position:absolute;inset:0;background:var(--dorado);border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.16);}
+    .envelope .flap{position:absolute;inset:0 0 50% 0;background:linear-gradient(to bottom,#cfae6f,var(--dorado));clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform 1s cubic-bezier(.19,1,.22,1);border-top-left-radius:14px;border-top-right-radius:14px;}
+    .envelope .paper{position:absolute;left:6%;right:6%;bottom:6%;top:30%;background:var(--crema);border-radius:12px;display:grid;place-items:center;box-shadow:0 10px 20px rgba(0,0,0,.1);}
+    .paper .logo{max-width:60%;opacity:.95;mix-blend-mode:multiply;}
     .envelope.open .flap{transform:rotateX(180deg);}
-    .envelope.open .paper{transform:translateY(-26%);transition:transform .6s ease;}
-    .intro .btn{background:linear-gradient(to bottom right,var(--cobre),var(--terracota));
-      color:#fff;border:none;padding:14px 18px;border-radius:999px;font-weight:700;
-      letter-spacing:.02em;box-shadow:0 6px 14px rgba(0,0,0,.12);cursor:pointer;}
-    .hidden{display:none;}
-    .fade-in{animation:fade .6s ease forwards;}
-    @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .envelope.open .paper{transform:translateY(-25%);transition:transform 1s ease;}
 
-    /* SECCIONES */
-    .wrap{width:min(920px,96vw);margin:0 auto;padding:16px;
-      padding-top:calc(16px + var(--safe-top));padding-bottom:calc(16px + var(--safe-bottom));}
-    .card{background:var(--crema);border-radius:18px;
-      box-shadow:0 8px 24px rgba(0,0,0,.08);border:1px solid var(--outline);
-      padding:clamp(18px,4vw,28px);margin:22px auto;text-align:center;
-      transition:transform .2s ease, box-shadow .2s ease;}
-    .card:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.12);}
-    .title{font-family:'Playfair Display',serif;
-      font-size:clamp(1.5rem,3.6vw,2rem);margin-bottom:.4rem;color:var(--cobre);}
-    p{margin:0.6rem auto;font-size:1.05rem;line-height:1.6;max-width:640px;}
-    .btn{appearance:none;border:none;background:linear-gradient(to bottom right,var(--cobre),var(--terracota));
-      color:#fff;padding:14px 18px;border-radius:999px;font-weight:700;box-shadow:0 6px 14px rgba(0,0,0,.12);text-decoration:none;min-height:48px;}
+    .btn{
+      background:linear-gradient(to bottom right,var(--dorado),var(--terracota));
+      color:#fff;border:none;padding:14px 22px;border-radius:999px;font-weight:700;
+      box-shadow:0 6px 14px rgba(0,0,0,.15);
+      cursor:pointer;transition:all .4s ease;letter-spacing:.02em;
+    }
+    .btn:hover{
+      box-shadow:0 0 16px 3px rgba(203,169,121,0.5);
+      transform:translateY(-1px);
+    }
 
-    /* ITINERARIO */
+    /* Cards generales */
+    .wrap{width:min(920px,96vw);margin:0 auto;padding:2rem 1rem;}
+    .card{
+      background:var(--crema);
+      border:1px solid var(--dorado);
+      border-radius:18px;
+      box-shadow:0 6px 18px rgba(0,0,0,.1);
+      text-align:center;
+      padding:clamp(18px,4vw,28px);
+      margin:26px auto;
+      animation:fadeIn 1.6s ease forwards;
+    }
+    .title{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2rem);color:var(--dorado);margin-bottom:.4rem;}
+
+    /* Itinerario */
     .timeline{list-style:none;margin:0;padding:0;display:grid;gap:18px;}
-    .timeline li{display:flex;align-items:center;justify-content:center;gap:14px;
-      background:var(--crema);border-radius:12px;border:1px solid var(--outline);
-      padding:10px 16px;box-shadow:0 4px 10px rgba(0,0,0,0.05);}
+    .timeline li{
+      display:flex;align-items:center;justify-content:center;gap:14px;
+      background:var(--crema);border-radius:12px;border:1px solid var(--dorado);
+      padding:10px 16px;box-shadow:0 3px 10px rgba(0,0,0,.05);
+    }
     .icon{font-size:1.8rem;}
-    .time{font-family:'Playfair Display',serif;font-weight:600;font-size:1.1rem;color:var(--cobre);min-width:90px;}
-    .event{font-size:1.1rem;color:var(--text);}
-    @media(max-width:600px){.timeline li{flex-direction:column;gap:6px;padding:12px;}}
+    .time{font-family:'Playfair Display',serif;font-weight:600;color:var(--cobre);min-width:90px;}
+    .event{font-size:1.05rem;}
+    @media(max-width:600px){.timeline li{flex-direction:column;gap:6px;}}
 
-    /* DRESSCODE */
+    /* Dresscode */
     .dresscode .color-restrictions{display:flex;justify-content:center;gap:30px;margin:1rem 0;}
     .dresscode .color{display:flex;flex-direction:column;align-items:center;font-size:.95rem;}
-    .dresscode .circle{width:44px;height:44px;border-radius:50%;margin-bottom:6px;
-      box-shadow:0 2px 5px rgba(0,0,0,0.1);}
-    @media(max-width:600px){.dresscode .color-restrictions{gap:20px;}
-      .dresscode .circle{width:36px;height:36px;}}
+    .dresscode .circle{width:44px;height:44px;border-radius:50%;margin-bottom:6px;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+    @media(max-width:600px){.dresscode .color-restrictions{gap:20px;}.dresscode .circle{width:36px;height:36px;}}
 
     footer{text-align:center;font-size:.9rem;opacity:.75;margin:24px 0 12px;}
   </style>
 </head>
 <body>
-  <!-- SOBRE -->
   <section class="intro">
     <div class="envelope-area">
       <div id="envelope" class="envelope">
         <div class="base"></div><div class="flap"></div>
         <div class="paper">
-          <img class="logo" src="Logo_Sobre_transparente.png" alt="Monograma M/J" />
+          <img class="logo" src="Logo_Sobre_transparente.png" alt="Monograma M/J">
         </div>
       </div>
       <button class="btn" id="openBtn">Abrir invitación</button>
     </div>
   </section>
 
-  <main id="app" class="wrap hidden">
+  <main id="app" class="wrap" style="display:none;">
     <section class="card fade-in">
       <div class="title">¡Nos casamos!</div>
-      <h1 style="font-family:'Great Vibes',cursive;font-size:clamp(2rem,7vw,3rem);color:var(--verde);margin-top:.2rem;">Mica & Jaime</h1>
+      <h1 style="font-family:'Great Vibes',cursive;font-size:clamp(2rem,7vw,3rem);color:var(--verde);margin:.2rem 0;">Mica & Jaime</h1>
       <p>Sábado 21 de marzo de 2026 · Casona Macul, Santiago</p>
     </section>
 
-    <!-- ITINERARIO -->
-    <section class="card itinerary">
+    <section class="card itinerary fade-in">
       <div class="title">Itinerario</div>
       <ul class="timeline">
         <li><span class="icon">💍</span><div class="time">4:00 PM</div><div class="event">Recepción y Ceremonia</div></li>
@@ -122,12 +122,25 @@
       </ul>
     </section>
 
-    <!-- DRESSCODE -->
-    <section class="card dresscode">
-      <div class="title">Código de vestimenta 👔✨</div>
-      <p>Formal elegante 🌹 — Gala o semi gala.  
-      Evita los colores reservados:</p>
+    <section class="card fade-in">
+      <div class="title">Nuestra Historia</div>
+      <div class="collage">
+        <img src="IMG_8695.JPG" alt="Mica y Jaime" class="big"/>
+        <img src="IMG_8710.JPG" alt="Mica y Jaime" class="tall"/>
+        <img src="Foto_Lima.JPEG" alt="Mica y Jaime" class="tall"/>
+        <img src="San_Andre.JPEG" alt="Mica y Jaime"/>
+        <img src="MATRI.png" alt="Mica y Jaime" class="big"/>
+        <img src="QUILLON.png" alt="Mica y Jaime"/>
+        <img src="Foto_reemplazo.png" alt="Mica y Jaime"/>
+        <img src="RIO_TIGRE.JPEG" alt="Mica y Jaime"/>
+        <img src="LAPA.png" alt="Mica y Jaime"/>
+        <img src="coliumo.JPEG" alt="Mica y Jaime"/>
+      </div>
+    </section>
 
+    <section class="card dresscode fade-in">
+      <div class="title">Código de vestimenta 👔✨</div>
+      <p>Formal elegante 🌹 — Gala o semi gala.<br>Evita los colores reservados:</p>
       <div class="color-restrictions">
         <div class="color">
           <div class="circle" style="background-color:#f7f3eb;border:1px solid #d2c7b8;"></div>
@@ -138,13 +151,36 @@
           <span>Burdeo</span>
         </div>
       </div>
-
-      <p style="opacity:.85;font-size:.95rem;">
-        (El tono claro se reserva para la novia, y el burdeo en corbata para el novio 💒)
-      </p>
+      <p style="opacity:.85;font-size:.95rem;">(El tono claro se reserva para la novia, y el burdeo en corbata para el novio 💒)</p>
     </section>
 
-    <footer>Con amor, Mica & Jaime · 2025</footer>
+    <section class="card fade-in">
+      <div class="title">Lista de regalos 🎁</div>
+      <a class="btn" href="https://novios.falabella.com/info-evento/evento?codigoEvento=2100121" target="_blank">Ver lista</a>
+    </section>
+
+    <section class="card fade-in">
+      <div class="title">Playlist 🎵</div>
+      <a class="btn" href="https://open.spotify.com/playlist/1yQ3SckD5XpexViWkWlKaM" target="_blank">Abrir Playlist</a>
+    </section>
+
+    <section class="card fade-in">
+      <div class="title">Confirmar asistencia 💌</div>
+      <a class="btn" href="https://forms.gle/tsauL7QgjHBVs5Ye6" target="_blank">Confirmar aquí</a>
+    </section>
+
+    <section class="card fade-in">
+      <div class="title">Dudas o consultas</div>
+      <a class="btn" href="https://wa.me/56982296127" target="_blank">WhatsApp Mica</a>
+      <a class="btn" href="https://wa.me/56989895843" target="_blank">WhatsApp Jaime</a>
+    </section>
+
+    <section class="card fade-in">
+      <div class="title">Agregar al calendario 📅</div>
+      <a class="btn" href="Matri Mica&Jaime - Casona Macul.ics" download>Agregar al calendario</a>
+    </section>
+
+    <footer class="fade-in">Con amor, Mica & Jaime · 2025</footer>
   </main>
 
   <script>
@@ -153,7 +189,11 @@
     const openBtn=document.getElementById('openBtn');
     function openInvite(){
       env.classList.add('open');
-      setTimeout(()=>{app.classList.remove('hidden');app.scrollIntoView({behavior:'smooth'});},700);
+      setTimeout(()=>{
+        app.style.display='block';
+        const cards=document.querySelectorAll('.card,footer');
+        cards.forEach((c,i)=>{c.style.animationDelay=(i*0.3)+'s';});
+      },800);
     }
     env.addEventListener('click',openInvite);
     env.addEventListener('keypress',(e)=>{if(e.key==='Enter'||e.key===' '){openInvite();}});
