@@ -61,42 +61,55 @@ body.opened .bg-floral{opacity:0;}
 .envelope{
   position:relative;
   width:min(96vmin,980px);
-  aspect-ratio:16/10;
+  aspect-ratio:16/10;               /* base desktop */
   cursor:pointer;perspective:1000px;
 }
-.envelope .base{position:absolute;inset:0;background:var(--dorado);border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.16);}
-.envelope .flap{position:absolute;inset:0 0 50% 0;background:linear-gradient(to bottom,#cfae6f,var(--dorado));clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform 1s cubic-bezier(.19,1,.22,1);}
+.envelope .base{
+  position:absolute;inset:0;background:var(--dorado);
+  border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.16);
+}
+.envelope .flap{
+  position:absolute;inset:0 0 50% 0;
+  background:linear-gradient(to bottom,#cfae6f,var(--dorado));
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top;transition:transform 1s cubic-bezier(.19,1,.22,1);
+}
 .envelope .paper{
   position:absolute;left:6%;right:6%;bottom:6%;top:30%;
   background:var(--crema);border-radius:12px;
-  box-shadow:0 10px 20px rgba(0,0,0,.1); padding:2%;
-  display:flex;align-items:center;justify-content:center;
+  display:grid;place-items:center;
+  box-shadow:0 10px 20px rgba(0,0,0,.1);
+  padding:2%;
+  overflow:hidden;                   /* evita que la frase se “escape” */
 }
+/* Contenido dentro del papel del sobre */
 .paper-content{
-  /* Siempre centrado en el área blanca, en desktop y móvil */
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center; width:100%; max-width:86%; gap:10px;
-  transform:translateY(0);
+  text-align:center;gap:8px;width:100%;height:100%;
 }
 .paper-content img{
-  width:min(34vmin,170px);
-  border-radius:50%;
-  filter:drop-shadow(0 2px 5px rgba(0,0,0,.1));
+  width:min(36vmin,180px);
+  border-radius:50%;filter:drop-shadow(0 2px 5px rgba(0,0,0,.1));
 }
 .paper-note{
-  font-family:'Great Vibes',cursive;
-  color:var(--dorado);
-  font-size:clamp(1.2rem,3.2vw,1.6rem);
-  line-height:1.1;
-}
-@media (max-width:560px){
-  .paper-content{max-width:92%;padding:4px;}
-  .paper-content img{width:min(40vmin,160px);}
+  font-family:'Great Vibes',cursive;color:var(--dorado);
+  font-size:clamp(1.1rem,3.2vw,1.6rem);line-height:1.15;
 }
 
-/* Animaciones de apertura */
-.envelope.open .flap{transform:rotateX(180deg);}
-.envelope.open .paper{transform:translateY(-25%);transition:transform 1s ease;}
+/* --------- Ajustes específicos para móviles --------- */
+@media (max-width:480px){
+  .envelope{ aspect-ratio: 4/3; }       /* forma más alta y estable en teléfono */
+  .envelope .paper{
+    left:7%; right:7%;
+    top:38%; bottom:8%;                 /* baja un poco el papel y deja espacio */
+  }
+  .paper-content img{
+    width:min(28vmin,136px);            /* logo un poco más pequeño */
+  }
+  .paper-note{
+    font-size:1rem;                     /* frase más contenida */
+  }
+}
 
 /* Cards contenedor */
 .wrap{width:min(920px,96vw);margin:0 auto;padding:2rem 1rem 1.2rem;position:relative;z-index:1;}
