@@ -85,12 +85,21 @@ body.opened .bg-floral{opacity:0;}
 }
 /* Solapa triangular */
 .envelope .flap{
-  position:absolute;inset:0 0 50% 0;
-  background:linear-gradient(to bottom,#d2b68f 0%,#c19b6e 55%,#b58e64 100%);
+  position:absolute;
+  inset:0 0 50% 0;
+  background:linear-gradient(
+    to bottom,
+    #e2c8a3 0%,     /* parte superior clara, como luz directa */
+    #c49b6a 45%,    /* tono medio cálido */
+    #a87948 75%,    /* transición cobre más fuerte */
+    #8f6336 100%    /* borde inferior oscuro */
+  );
   clip-path:polygon(0 0,100% 0,50% 100%);
-  transform-origin:top;transition:transform 1s cubic-bezier(.19,1,.22,1);
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,.12));
+  transform-origin:top;
+  transition:transform 1s cubic-bezier(.19,1,.22,1);
+  filter:drop-shadow(0 4px 12px rgba(0,0,0,.18));
 }
+
 
 
 
@@ -300,7 +309,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
   <!-- Collage -->
   <section class="card fade-in">
     <div class="title">Parte de Nuestra Historia</div>
-    <div class="title-emoji">🦔 ❤️ 😻</div>
+    <div class="title-emoji">🦔 ❤️ 🐈</div>
     <div class="collage">
       <img src="IMG_8695.JPG" alt="Mica y Jaime" class="tall" />
       <img src="IMG_8710.JPG" alt="Mica y Jaime" />
