@@ -91,24 +91,7 @@ body.opened .bg-floral{opacity:0;}
   transform-origin:top;transition:transform 1s cubic-bezier(.19,1,.22,1);
   filter: drop-shadow(0 4px 10px rgba(0,0,0,.12));
 }
-/* Borde/contorno de la solapa MÁS marcado (laterales) */
-.envelope .flap::before,
-.envelope .flap::after{
-  content:"";
-  position:absolute; top:0; height:52%;
-  width:3px;
-  background:linear-gradient(
-    to bottom,
-    rgba(255,255,255,.20) 0%,
-    rgba(110,83,54,.90) 35%,
-    rgba(78,58,38,.95) 100%
-  );
-  box-shadow:
-    0 0 .5px rgba(255,255,255,.45),
-    0 1px 2px rgba(0,0,0,.25);
-}
-.envelope .flap::before{ left:2%;  transform-origin:top left;  transform:rotate(14deg); }
-.envelope .flap::after{  right:2%; transform-origin:top right; transform:rotate(-14deg); }
+
 
 
 
