@@ -17,11 +17,13 @@
   --verde:#6D745C; --terracota:#C46E58; --cobre:#B86830;
   --dorado:#CBA979; --crema:#f7f3eb; --fondo:#f5e9d4;
   --outline:#d9c9af; --text:#5b5a4f;
-  --wax:#b8864a;          /* tono principal: cera dorada-ámbar */
-  --wax-dark:#8d6533;     /* borde oscuro (cobre envejecido) */
-  --wax-light:#e2b979;    /* reflejo claro, efecto metalizado */
 
+  /* Sello de cera, tonos que combinan con tu paleta */
+  --wax:#b8864a;       /* cera dorada-ámbar */
+  --wax-dark:#8d6533;  /* borde cobre envejecido */
+  --wax-light:#e2b979; /* reflejo claro */
 }
+
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{
   height:100%;
@@ -46,7 +48,7 @@ img{max-width:100%;height:auto;}
 }
 body.opened .bg-floral{opacity:0;}
 
-/* Botones */
+/* Botones — más pequeños y con mayor separación del texto */
 .btn{
   background:linear-gradient(to bottom right,var(--dorado),var(--terracota));
   color:#fff;border:none;padding:9px 14px;border-radius:999px;
@@ -55,13 +57,9 @@ body.opened .bg-floral{opacity:0;}
   cursor:pointer;transition:all .3s ease;letter-spacing:.01em;margin:5px;
 }
 .btn:hover{ box-shadow:0 0 14px 3px rgba(203,169,121,0.45); transform:translateY(-1px); }
+.btn-row{ display:flex;justify-content:center;gap:12px;flex-wrap:wrap; margin-top:34px; }
 
-.btn-row{
-  display:flex;justify-content:center;gap:12px;flex-wrap:wrap;
-  margin-top:34px;
-}
-
-/* ===== SOBRE (Intro) ===== */
+/* ===== SOBRE (Intro) SIN PAPEL BLANCO ===== */
 .intro{
   min-height:100svh;
   display:grid;place-items:center;position:relative;z-index:1;
@@ -73,17 +71,19 @@ body.opened .bg-floral{opacity:0;}
   aspect-ratio:16/10;
   cursor:pointer;perspective:1000px;
   filter: drop-shadow(0 14px 34px rgba(0,0,0,.16));
+  border-radius:16px;
 }
-/* Papel kraft vintage */
+/* Cuerpo de sobre tipo kraft */
 .envelope .base{
   position:absolute;inset:0;border-radius:16px;
   background:linear-gradient(to bottom,#caa97a,#b99569 48%,#b99569 52%,#b38e63);
 }
-.envelope .base::before{
+.envelope .base::before{ /* textura liviana */
   content:"";position:absolute;inset:0;border-radius:16px;
   background:repeating-linear-gradient(0deg, rgba(255,255,255,.05), rgba(255,255,255,.05) 2px, transparent 2px, transparent 4px);
   mix-blend-mode:overlay;opacity:.35;pointer-events:none;
 }
+/* Solapa triangular */
 .envelope .flap{
   position:absolute;inset:0 0 50% 0;
   background:linear-gradient(to bottom,#ceb087,#c19b6e 55%,#b58e64);
@@ -91,75 +91,78 @@ body.opened .bg-floral{opacity:0;}
   transform-origin:top;transition:transform 1s cubic-bezier(.19,1,.22,1);
   filter: drop-shadow(0 4px 10px rgba(0,0,0,.12));
 }
-.envelope .paper{
-  position:absolute;left:6%;right:6%;bottom:6%;top:30%;
-  background:var(--crema);border-radius:14px;
-  display:grid;place-items:center;
-  box-shadow:0 10px 20px rgba(0,0,0,.13);
-  padding:2%;
-  overflow:hidden;
-  border:1px solid #eadfcd;
+/* Junta/crease muy marcada */
+.envelope .crease{
+  position:absolute; left:3%; right:3%; top:50%;
+  height:2px; transform:translateY(-1px);
+  background:linear-gradient(to bottom, rgba(140,110,72,.55), rgba(255,255,255,.45));
+  border-radius:2px;
+  box-shadow:0 1px 0 rgba(0,0,0,.18), 0 -1px 0 rgba(255,255,255,.55);
+}
+.envelope .crease::after{ /* sombra bajo la junta */
+  content:""; position:absolute; left:-2%; right:-2%; top:1px; height:14px;
+  background:radial-gradient(100% 100% at 50% -40%, rgba(0,0,0,.25), transparent 60%);
+  pointer-events:none;
 }
 
-/* Contenido del papel */
-.paper-content{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;gap:12px;width:100%;height:100%;
-}
-
-/* —— SELLO DE CERA —— */
-.seal-wrap{ position:relative; display:inline-block; }
-.wax-seal{
+/* —— SELLO DE CERA centrado en la junta —— */
+.seal-wrap{
   position:absolute;
-  /* tamaño: ligeramente mayor que el broche */
-  width:calc(min(36vmin,180px) + 26px);
-  height:calc(min(36vmin,180px) + 26px);
-  left:50%; top:50%; transform:translate(-50%,-50%) rotate(-2deg);
-  border-radius:50%;
+  left:50%; top:50%;
+  transform:translate(-50%,-18%);
+  transition: transform .6s ease, opacity .6s ease, filter .6s ease;
+  will-change: transform, opacity, filter;
+}
+.wax-seal{
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%) rotate(-2deg);
+  width:110px; height:110px; border-radius:50%;
   background:
     radial-gradient(120% 120% at 35% 25%, rgba(255,255,255,.22) 0 18%, transparent 19%),
     radial-gradient(100% 100% at 70% 70%, rgba(0,0,0,.20) 0 42%, transparent 43%),
     radial-gradient(circle at 50% 55%, var(--wax-light) 0 58%, var(--wax-dark) 60% 100%);
-  box-shadow:
-    inset 0 6px 10px rgba(255,255,255,.18),
-    inset 0 -10px 16px rgba(0,0,0,.35),
-    0 10px 22px rgba(0,0,0,.25);
+  box-shadow: inset 0 6px 10px rgba(255,255,255,.18),
+              inset 0 -10px 16px rgba(0,0,0,.35),
+              0 10px 22px rgba(0,0,0,.25);
+  transition: transform .6s ease, opacity .6s ease;
 }
-/* gotitas irregulares alrededor del sello */
-.wax-seal::before{
-  content:"";
-  position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-  width:10px; height:10px; border-radius:50%; background:var(--wax);
-  box-shadow:
-    -62px -8px 0 6px var(--wax),
-    -34px 22px 0 10px var(--wax),
-    58px -6px 0 8px var(--wax),
-    30px 28px 0 7px var(--wax),
-    -8px 58px 0 9px var(--wax);
-  filter:blur(.4px);
-  opacity:.9;
+.wax-seal::before{ /* gotas irregulares */
+  content:""; position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%); width:10px; height:10px; border-radius:50%;
+  background:var(--wax);
+  box-shadow:-44px 10px 0 8px var(--wax),
+             42px 12px 0 7px var(--wax),
+             -6px 46px 0 7px var(--wax),
+             0px -40px 0 6px var(--wax);
+  filter:blur(.4px); opacity:.9;
 }
-.seal-wrap img{ position:relative; z-index:2; width:min(36vmin,180px); border-radius:50%;
+#sealImg{
+  position:relative; z-index:2; width:96px; height:96px; border-radius:50%;
   filter:drop-shadow(0 3px 6px rgba(0,0,0,.18));
+  transition: transform .6s ease, opacity .6s ease, filter .6s ease;
 }
-
-.paper-note{
+/* Frase debajo de la junta, sobre el kraft */
+.envelope .paper-note{
+  position:absolute; left:0; right:0; top:72%;
+  text-align:center; pointer-events:none;
   font-family:'Great Vibes',cursive;color:#b07a47;
   font-size:clamp(1.2rem,3.4vw,1.7rem);
   line-height:1.18; letter-spacing:.3px;
   text-shadow:0 1px 0 rgba(255,255,255,.8);
 }
 
+/* Estado al abrir: el sello se encoge y se desvanece */
 .envelope.open .flap{transform:rotateX(180deg);}
-.envelope.open .paper{transform:translateY(-25%);transition:transform 1s ease;}
+.envelope.open .seal-wrap{ transform:translate(-50%,-18%) scale(.85); opacity:0; filter:blur(1px); }
+.envelope.open .wax-seal{ transform:translate(-50%,-50%) scale(.85); opacity:0; }
+.envelope.open #sealImg{ transform:scale(.9); opacity:0; filter:blur(.6px); }
 
 /* móviles */
 @media (max-width:480px){
   .envelope{ aspect-ratio: 4/3; }
-  .envelope .paper{ left:7%; right:7%; top:38%; bottom:8%; }
-  .seal-wrap img{ width:min(28vmin,132px); }
-  .wax-seal{ width:calc(min(28vmin,132px) + 24px); height:calc(min(28vmin,132px) + 24px); }
-  .paper-note{ font-size:1.1rem; }
+  #sealImg{ width:84px; height:84px; }
+  .wax-seal{ width:96px; height:96px; }
+  .envelope .paper-note{ top:74%; font-size:1.1rem; }
   .btn{ font-size:.8rem; padding:8px 12px; }
   .btn-row{ margin-top:28px; }
 }
@@ -227,12 +230,8 @@ body.opened .bg-floral{opacity:0;}
 
 /* Mapa vintage */
 .map-frame{
-  position:relative;
-  width:100%;
-  max-width:840px;
-  margin:10px auto 0;
-  border-radius:16px;
-  overflow:hidden;
+  position:relative; width:100%; max-width:840px;
+  margin:10px auto 0; border-radius:16px; overflow:hidden;
   border:1px solid #d0b88a;
   box-shadow: inset 0 0 0 2px rgba(255,255,255,0.65), 0 10px 24px rgba(0,0,0,.12);
 }
@@ -253,8 +252,8 @@ body.opened .bg-floral{opacity:0;}
 }
 .map-frame .pin{
   position:absolute;top:58%; left:62%;
-  transform:translate(-50%,-90%);
-  font-size:1.6rem; text-shadow:0 1px 3px rgba(0,0,0,.35);
+  transform:translate(-50%,-90%); font-size:1.6rem;
+  text-shadow:0 1px 3px rgba(0,0,0,.35);
 }
 
 footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
@@ -262,6 +261,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
 </head>
 <body>
 
+<!-- Fondo floral -->
 <div class="bg-floral"></div>
 
 <section class="intro">
@@ -269,21 +269,24 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     <div id="envelope" class="envelope" tabindex="0" aria-label="Abrir invitación">
       <div class="base"></div>
       <div class="flap"></div>
-      <div class="paper">
-        <div class="paper-content">
-          <!-- Sello de cera + broche -->
-          <div class="seal-wrap">
-            <div class="wax-seal"></div>
-            <img id="paperLogo" src="Broche.png" alt="Broche M·J" />
-          </div>
-          <div class="paper-note">¡Queremos compartir este momento contigo!</div>
-        </div>
+
+      <!-- Junta bien marcada -->
+      <div class="crease"></div>
+
+      <!-- Sello de cera + broche centrado en la junta -->
+      <div class="seal-wrap">
+        <div class="wax-seal"></div>
+        <img id="sealImg" src="Broche.png" alt="Broche M·J" />
       </div>
+
+      <!-- Frase sobre el kraft -->
+      <div class="paper-note">¡Queremos compartir este momento contigo!</div>
     </div>
   </div>
 </section>
 
 <main id="app" class="wrap hidden">
+  <!-- HERO -->
   <section class="card hero fade-in" id="hero">
     <div class="script">¡Nos casamos!</div>
     <h1>Mica & Jaime</h1>
@@ -304,7 +307,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
   <!-- Collage -->
   <section class="card fade-in">
     <div class="title">Parte de Nuestra Historia</div>
-    <div class="title-emoji">🦔 💛 🐱</div>
+    <div class="title-emoji">🦔 ❤️ 😻</div>
     <div class="collage">
       <img src="IMG_8695.JPG" alt="Mica y Jaime" class="tall" />
       <img src="IMG_8710.JPG" alt="Mica y Jaime" />
@@ -323,10 +326,37 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
   <section class="card itinerary fade-in">
     <div class="title">Itinerario</div>
     <ul class="timeline">
-      <li><span class="icon">💍</span><div class="time">4:00 PM</div><div class="event">Recepción y Ceremonia</div></li>
-      <li><span class="icon">🍸</span><div class="time">6:30 PM</div><div class="event">Cocktail</div></li>
-      <li><span class="icon">🍽️</span><div class="time">8:30 PM</div><div class="event">Cena</div></li>
-      <li><span class="icon">🎉</span><div class="time">10:30 PM</div><div class="event">Fiesta</div></li>
+<section class="card itinerary fade-in">
+  <div class="title">Itinerario</div>
+  <ul class="timeline">
+    <li>
+      <span class="icon">💍</span>
+      <div class="time">4:00 PM</div>
+      <div class="event">Recepción y Ceremonia — ¡Te esperamos puntual para vivir juntos este gran momento!</div>
+    </li>
+    <li>
+      <span class="icon">🥂</span>
+      <div class="event">Brindis de bienvenida y fotos con los novios</div>
+    </li>
+    <li>
+      <span class="icon">🍸</span>
+      <div class="event">Cocktail y primeros momentos de celebración</div>
+    </li>
+    <li>
+      <span class="icon">🍽️</span>
+      <div class="event">Cena y brindis en honor al amor 💛</div>
+    </li>
+    <li>
+      <span class="icon">🎶</span>
+      <div class="event">Comienza la fiesta con buena música y alegría</div>
+    </li>
+    <li>
+      <span class="icon">🎁</span>
+      <div class="event">Atento a las <strong>sorpresas</strong> que tendremos en cada etapa del matrimonio — ¡Queremos que vivas cada instante con nosotros! ✨</div>
+    </li>
+  </ul>
+</section>
+
     </ul>
   </section>
 
@@ -364,8 +394,8 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
 
   <!-- Lista de regalos -->
   <section class="card fade-in">
-    <div class="title">Lista de regalos 🎁</div>
-    <div class="playlist-note">Tu presencia es lo más importante, pero si quieres tener un detalle, aquí encontrarás nuestra lista o nuestros datos.</div>
+    <div class="title">Acá nos puedes dejar un regalo! 😊🎁</div>
+    <div class="playlist-note">Tu presencia es lo más importante, pero si quieres dejarnos un detalle, aquí encontrarás nuestra lista de deseos o nuestros datos bancarios.</div>
     <div class="btn-row">
       <a class="btn" href="https://novios.falabella.com/info-evento/evento?codigoEvento=2100121" target="_blank" rel="noopener">Ver lista</a>
       <a class="btn" href="Datos_regalo_Mica_Jaime.pdf" target="_blank" rel="noopener">Datos bancarios</a>
@@ -405,7 +435,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
 
   <!-- Contacto -->
   <section class="card fade-in">
-    <div class="title">Dudas o consultas 🙋‍♀️🙋‍♂️</div>
+    <div class="title">Dudas o consultas 🙋🏻‍♀️🙋🏻‍♂️</div>
     <div class="playlist-note">Haz clic para escribirnos directo por WhatsApp</div>
     <div class="btn-row">
       <a class="btn" href="https://wa.me/56982296127" target="_blank" rel="noopener">WhatsApp Mica</a>
@@ -415,8 +445,8 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
 
   <!-- Calendario -->
   <section class="card fade-in">
-    <div class="title">Agregar al calendario 📅</div>
-    <div class="playlist-note">¡Save the date! (Google, iOS, Outlook)</div>
+    <div class="title">¡Save the date! 📅</div>
+    <div class="playlist-note">Agregar al calendario (Google, iOS, Outlook)</div>
     <div class="btn-row">
       <a class="btn" href="Matri Mica&Jaime - Casona Macul.ics">Agregar al calendario</a>
     </div>
@@ -438,16 +468,17 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
 const body = document.body;
 const env  = document.getElementById('envelope');
 const app  = document.getElementById('app');
-const openBtn = document.getElementById('openBtn');
-const paperLogo = document.getElementById('paperLogo');
+const openBtn = document.getElementById('openBtn'); // por si luego activas un botón
+const sealImg = document.getElementById('sealImg');  // broche sobre la junta
 
 function scrollToInvite(){
   const hero = document.getElementById('hero');
   hero.scrollIntoView({behavior:'smooth', block:'start'});
 }
+
 function openInvite(){
   env.classList.add('open');
-  body.classList.add('opened');
+  body.classList.add('opened'); // crossfade del fondo floral
   setTimeout(()=>{
     app.classList.remove('hidden');
     const cards=document.querySelectorAll('.card,.hero,footer');
@@ -455,12 +486,13 @@ function openInvite(){
     requestAnimationFrame(()=>requestAnimationFrame(()=>scrollToInvite()));
   }, 900);
 }
+
 env.addEventListener('click', openInvite);
 if (openBtn) openBtn.addEventListener('click', openInvite);
-if (paperLogo) paperLogo.addEventListener('click', openInvite);
+if (sealImg) sealImg.addEventListener('click', openInvite);
 env.addEventListener('keypress', (e)=>{ if(e.key==='Enter'||e.key===' '){ openInvite(); } });
 
-// Countdown
+// ===== Countdown (21/03/2026 16:00 CL) =====
 const ddEl = document.getElementById('dd');
 const hhEl = document.getElementById('hh');
 const mmEl = document.getElementById('mm');
@@ -476,7 +508,10 @@ function setTiles(d,h,m,s){
 function updateCountdown(){
   const now = Date.now();
   let diff = targetDate - now;
-  if (diff <= 0){ setTiles(0,0,0,0); return; }
+  if (diff <= 0){
+    setTiles(0,0,0,0);
+    return;
+  }
   const d = Math.floor(diff/(1000*60*60*24)); diff%= (1000*60*60*24);
   const h = Math.floor(diff/(1000*60*60));     diff%= (1000*60*60);
   const m = Math.floor(diff/(1000*60));        diff%= (1000*60);
