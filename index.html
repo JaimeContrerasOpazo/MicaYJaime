@@ -48,7 +48,7 @@ img{max-width:100%;height:auto;}
 }
 body.opened .bg-floral{opacity:0;}
 
-/* Botones — más pequeños y con mayor separación del texto */
+/* Botones */
 .btn{
   background:linear-gradient(to bottom right,var(--dorado),var(--terracota));
   color:#fff;border:none;padding:9px 14px;border-radius:999px;
@@ -91,42 +91,46 @@ body.opened .bg-floral{opacity:0;}
   transform-origin:top;transition:transform 1s cubic-bezier(.19,1,.22,1);
   filter: drop-shadow(0 4px 10px rgba(0,0,0,.12));
 }
-/* Borde/contorno de la solapa más marcado */
-.envelope .flap::before, .envelope .flap::after{
-  content:""; position:absolute; top:0; height:52%;
-  width:2px; background:rgba(96,70,40,.65);
-  filter:drop-shadow(0 0 1px rgba(255,255,255,.45));
+/* Borde/contorno de la solapa MÁS marcado (laterales) */
+.envelope .flap::before,
+.envelope .flap::after{
+  content:"";
+  position:absolute; top:0; height:52%;
+  width:3px;
+  background:linear-gradient(
+    to bottom,
+    rgba(255,255,255,.20) 0%,
+    rgba(110,83,54,.90) 35%,
+    rgba(78,58,38,.95) 100%
+  );
+  box-shadow:
+    0 0 .5px rgba(255,255,255,.45),
+    0 1px 2px rgba(0,0,0,.25);
 }
-.envelope .flap::before{ left:2%; transform-origin:top left; transform:rotate(14deg); }
-.envelope .flap::after{ right:2%; transform-origin:top right; transform:rotate(-14deg); }
-/* Línea en el borde inferior de la solapa */
-.envelope .flap-bot{
-  content:""; position:absolute; left:16%; right:16%; top:50%;
-  height:2px; background:linear-gradient(to right, rgba(255,255,255,.6), rgba(120,90,55,.7), rgba(255,255,255,.6));
-  transform:translateY(-1px);
-  border-radius:2px;
-}
+.envelope .flap::before{ left:2%;  transform-origin:top left;  transform:rotate(14deg); }
+.envelope .flap::after{  right:2%; transform-origin:top right; transform:rotate(-14deg); }
 
-/* Junta/crease central muy marcada */
+/* Junta/crease central MUY marcada (sin halo blanco) */
 .envelope .crease{
   position:absolute; left:3%; right:3%; top:50%;
-  height:2px; transform:translateY(-1px);
-  background:linear-gradient(to bottom, rgba(120,90,55,.75), rgba(255,255,255,.55));
+  height:3px; transform:translateY(-1px);
+  background:linear-gradient(to bottom, rgba(70,52,34,.95), rgba(120,90,55,.55));
   border-radius:2px;
-  box-shadow:0 1px 0 rgba(0,0,0,.25), 0 -1px 0 rgba(255,255,255,.65);
+  box-shadow:0 1px 0 rgba(0,0,0,.35), 0 -1px 0 rgba(255,255,255,.28);
 }
 .envelope .crease::after{ /* sombra bajo la junta */
-  content:""; position:absolute; left:-2%; right:-2%; top:1px; height:16px;
-  background:radial-gradient(100% 100% at 50% -40%, rgba(0,0,0,.28), transparent 60%);
+  content:""; position:absolute; left:-2%; right:-2%; top:1px; height:18px;
+  background:radial-gradient(100% 100% at 50% -40%, rgba(0,0,0,.32), transparent 62%);
   pointer-events:none;
 }
-/* Pliegues diagonales del sobre (cuerpo) para acentuar forma */
+/* Pliegues diagonales del cuerpo más fuertes */
 .envelope .side-crease{
-  position:absolute; top:50%; height:2px; width:48%;
-  background:linear-gradient(to right, rgba(255,255,255,.5), rgba(120,90,55,.7));
-  border-radius:2px; filter:drop-shadow(0 1px 0 rgba(0,0,0,.25));
+  position:absolute; top:50%; height:3px; width:48%;
+  background:linear-gradient(to right, rgba(255,255,255,.18), rgba(90,68,46,.85));
+  border-radius:2px;
+  box-shadow:0 1px 0 rgba(0,0,0,.28);
 }
-.envelope .side-crease.left{ left:2%; transform:rotate(14deg) translateY(-1px); transform-origin:left center; }
+.envelope .side-crease.left{  left:2%;  transform:rotate(14deg) translateY(-1px);  transform-origin:left center; }
 .envelope .side-crease.right{ right:2%; transform:rotate(-14deg) translateY(-1px); transform-origin:right center; }
 
 /* —— SELLO DE CERA centrado en la junta —— */
@@ -165,7 +169,7 @@ body.opened .bg-floral{opacity:0;}
   filter:drop-shadow(0 3px 6px rgba(0,0,0,.18));
   transition: transform .6s ease, opacity .6s ease, filter .6s ease;
 }
-/* Frase debajo de la junta, sobre el kraft — ahora en BLANCO */
+/* Frase debajo de la junta — BLANCO */
 .envelope .paper-note{
   position:absolute; left:0; right:0; top:72%;
   text-align:center; pointer-events:none;
@@ -175,7 +179,7 @@ body.opened .bg-floral{opacity:0;}
   text-shadow:0 1px 2px rgba(0,0,0,.55);
 }
 
-/* Estado al abrir: el sello se encoge y se desvanece */
+/* Estado al abrir */
 .envelope.open .flap{transform:rotateX(180deg);}
 .envelope.open .seal-wrap{ transform:translate(-50%,-18%) scale(.85); opacity:0; filter:blur(1px); }
 .envelope.open .wax-seal{ transform:translate(-50%,-50%) scale(.85); opacity:0; }
@@ -293,7 +297,6 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     <div id="envelope" class="envelope" tabindex="0" aria-label="Abrir invitación">
       <div class="base"></div>
       <div class="flap"></div>
-      <div class="flap-bot"></div>
 
       <!-- Junta bien marcada -->
       <div class="crease"></div>
