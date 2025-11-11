@@ -86,24 +86,48 @@ body.opened .bg-floral{opacity:0;}
 /* Solapa triangular */
 .envelope .flap{
   position:absolute;inset:0 0 50% 0;
-  background:linear-gradient(to bottom,#ceb087,#c19b6e 55%,#b58e64);
+  background:linear-gradient(to bottom,#d2b68f 0%,#c19b6e 55%,#b58e64 100%);
   clip-path:polygon(0 0,100% 0,50% 100%);
   transform-origin:top;transition:transform 1s cubic-bezier(.19,1,.22,1);
   filter: drop-shadow(0 4px 10px rgba(0,0,0,.12));
 }
-/* Junta/crease muy marcada */
+/* Borde/contorno de la solapa más marcado */
+.envelope .flap::before, .envelope .flap::after{
+  content:""; position:absolute; top:0; height:52%;
+  width:2px; background:rgba(96,70,40,.65);
+  filter:drop-shadow(0 0 1px rgba(255,255,255,.45));
+}
+.envelope .flap::before{ left:2%; transform-origin:top left; transform:rotate(14deg); }
+.envelope .flap::after{ right:2%; transform-origin:top right; transform:rotate(-14deg); }
+/* Línea en el borde inferior de la solapa */
+.envelope .flap-bot{
+  content:""; position:absolute; left:16%; right:16%; top:50%;
+  height:2px; background:linear-gradient(to right, rgba(255,255,255,.6), rgba(120,90,55,.7), rgba(255,255,255,.6));
+  transform:translateY(-1px);
+  border-radius:2px;
+}
+
+/* Junta/crease central muy marcada */
 .envelope .crease{
   position:absolute; left:3%; right:3%; top:50%;
   height:2px; transform:translateY(-1px);
-  background:linear-gradient(to bottom, rgba(140,110,72,.55), rgba(255,255,255,.45));
+  background:linear-gradient(to bottom, rgba(120,90,55,.75), rgba(255,255,255,.55));
   border-radius:2px;
-  box-shadow:0 1px 0 rgba(0,0,0,.18), 0 -1px 0 rgba(255,255,255,.55);
+  box-shadow:0 1px 0 rgba(0,0,0,.25), 0 -1px 0 rgba(255,255,255,.65);
 }
 .envelope .crease::after{ /* sombra bajo la junta */
-  content:""; position:absolute; left:-2%; right:-2%; top:1px; height:14px;
-  background:radial-gradient(100% 100% at 50% -40%, rgba(0,0,0,.25), transparent 60%);
+  content:""; position:absolute; left:-2%; right:-2%; top:1px; height:16px;
+  background:radial-gradient(100% 100% at 50% -40%, rgba(0,0,0,.28), transparent 60%);
   pointer-events:none;
 }
+/* Pliegues diagonales del sobre (cuerpo) para acentuar forma */
+.envelope .side-crease{
+  position:absolute; top:50%; height:2px; width:48%;
+  background:linear-gradient(to right, rgba(255,255,255,.5), rgba(120,90,55,.7));
+  border-radius:2px; filter:drop-shadow(0 1px 0 rgba(0,0,0,.25));
+}
+.envelope .side-crease.left{ left:2%; transform:rotate(14deg) translateY(-1px); transform-origin:left center; }
+.envelope .side-crease.right{ right:2%; transform:rotate(-14deg) translateY(-1px); transform-origin:right center; }
 
 /* —— SELLO DE CERA centrado en la junta —— */
 .seal-wrap{
@@ -141,14 +165,14 @@ body.opened .bg-floral{opacity:0;}
   filter:drop-shadow(0 3px 6px rgba(0,0,0,.18));
   transition: transform .6s ease, opacity .6s ease, filter .6s ease;
 }
-/* Frase debajo de la junta, sobre el kraft */
+/* Frase debajo de la junta, sobre el kraft — ahora en BLANCO */
 .envelope .paper-note{
   position:absolute; left:0; right:0; top:72%;
   text-align:center; pointer-events:none;
-  font-family:'Great Vibes',cursive;color:#b07a47;
+  font-family:'Great Vibes',cursive;color:#ffffff;
   font-size:clamp(1.2rem,3.4vw,1.7rem);
   line-height:1.18; letter-spacing:.3px;
-  text-shadow:0 1px 0 rgba(255,255,255,.8);
+  text-shadow:0 1px 2px rgba(0,0,0,.55);
 }
 
 /* Estado al abrir: el sello se encoge y se desvanece */
@@ -269,9 +293,12 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     <div id="envelope" class="envelope" tabindex="0" aria-label="Abrir invitación">
       <div class="base"></div>
       <div class="flap"></div>
+      <div class="flap-bot"></div>
 
       <!-- Junta bien marcada -->
       <div class="crease"></div>
+      <div class="side-crease left"></div>
+      <div class="side-crease right"></div>
 
       <!-- Sello de cera + broche centrado en la junta -->
       <div class="seal-wrap">
@@ -279,7 +306,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
         <img id="sealImg" src="Broche.png" alt="Broche M·J" />
       </div>
 
-      <!-- Frase sobre el kraft -->
+      <!-- Frase sobre el kraft (blanca) -->
       <div class="paper-note">¡Queremos compartir este momento contigo!</div>
     </div>
   </div>
@@ -322,41 +349,39 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     </div>
   </section>
 
-  <!-- Itinerario -->
+  <!-- Itinerario (sin duplicados) -->
   <section class="card itinerary fade-in">
     <div class="title">Itinerario</div>
     <ul class="timeline">
-<section class="card itinerary fade-in">
-  <div class="title">Itinerario</div>
-  <ul class="timeline">
-    <li>
-      <span class="icon">💍</span>
-      <div class="time">4:00 PM</div>
-      <div class="event">Recepción y Ceremonia — ¡Te esperamos puntual para vivir juntos este gran momento!</div>
-    </li>
-    <li>
-      <span class="icon">🥂</span>
-      <div class="event">Brindis de bienvenida y fotos con los novios</div>
-    </li>
-    <li>
-      <span class="icon">🍸</span>
-      <div class="event">Cocktail y primeros momentos de celebración</div>
-    </li>
-    <li>
-      <span class="icon">🍽️</span>
-      <div class="event">Cena y brindis en honor al amor 💛</div>
-    </li>
-    <li>
-      <span class="icon">🎶</span>
-      <div class="event">Comienza la fiesta con buena música y alegría</div>
-    </li>
-    <li>
-      <span class="icon">🎁</span>
-      <div class="event">Atento a las <strong>sorpresas</strong> que tendremos en cada etapa del matrimonio — ¡Queremos que vivas cada instante con nosotros! ✨</div>
-    </li>
-  </ul>
-</section>
-
+      <li>
+        <span class="icon">💐</span>
+        <div class="time">4:00 PM</div>
+        <div class="event">Recepción — ¡Te esperamos puntual para vivir juntos este gran momento!</div>
+      </li>
+      <li>
+        <span class="icon">💍</span>
+        <div class="event">Ceremonia</div>
+      </li>
+      <li>
+        <span class="icon">🥂</span>
+        <div class="event">Brindis de bienvenida y fotos con los novios</div>
+      </li>
+      <li>
+        <span class="icon">🍸</span>
+        <div class="event">Cocktail y primeros momentos de celebración</div>
+      </li>
+      <li>
+        <span class="icon">🍽️</span>
+        <div class="event">Cena y brindis en honor al amor 💛</div>
+      </li>
+      <li>
+        <span class="icon">🎶</span>
+        <div class="event">Comienza la fiesta con buena música y alegría</div>
+      </li>
+      <li>
+        <span class="icon">🎁</span>
+        <div class="event">Atento a las <strong>sorpresas</strong> que tendremos en cada etapa del matrimonio — ¡Queremos que vivas cada instante con nosotros! ✨</div>
+      </li>
     </ul>
   </section>
 
