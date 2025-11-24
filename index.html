@@ -18,7 +18,6 @@
   --dorado:#CBA979; --crema:#f7f3eb; --fondo:#f5e9d4;
   --outline:#d9c9af; --text:#5b5a4f;
 
-  /* Sello de cera, tonos que combinan con tu paleta */
   --wax:#b8864a;
   --wax-dark:#8d6533;
   --wax-light:#e2b979;
@@ -59,7 +58,7 @@ body.opened .bg-floral{opacity:0;}
 .btn:hover{ box-shadow:0 0 14px 3px rgba(203,169,121,0.45); transform:translateY(-1px); }
 .btn-row{ display:flex;justify-content:center;gap:12px;flex-wrap:wrap; margin-top:34px; }
 
-/* ===== SOBRE (Intro) SIN PAPEL BLANCO ===== */
+/* ===== SOBRE (Intro) ===== */
 .intro{
   min-height:100svh;
   display:grid;place-items:center;position:relative;z-index:1;
@@ -178,7 +177,7 @@ body.opened .bg-floral{opacity:0;}
 .title-emoji{font-size:1.4rem; margin-top:.2rem;}
 
 /* HERO */
-#hero{ scroll-margin-top:14px; }
+#hero{ scroll-margin-top:40px; } /* más margen para que no se corte */
 .hero{color:var(--verde);}
 .hero .script{font-family:'Great Vibes',cursive;font-size:2rem;color:var(--cobre);}
 .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5.5vw,3rem);color:var(--dorado);margin:.35rem 0;}
@@ -244,7 +243,7 @@ body.opened .bg-floral{opacity:0;}
 .dresscode .color{display:flex;flex-direction:column;align-items:center;font-size:.95rem;min-width:120px;}
 .dresscode .circle{width:44px;height:44px;border-radius:50%;margin-bottom:6px;box-shadow:0 2px 5px rgba(0,0,0,0.1);border:1px solid #d2c7b8;}
 .swatches{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-top:10px;}
-.swatch{display:flex;flex-direction:column;alignitems:center;gap:6px;min-width:92px;}
+.swatch{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:92px;}
 .swatch .chip{width:38px;height:38px;border-radius:50%;box-shadow:0 2px 5px rgba(0,0,0,.08);border:1px solid #d8d0c3;}
 @media(max-width:600px){.dresscode .color-restrictions{gap:20px;}.dresscode .circle{width:36px;height:36px;} .swatch{min-width:84px;}}
 
@@ -345,7 +344,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
 /* HINT "HAZ CLICK EN EL BOTÓN DEL SOBRE" */
 .envelope-hint{
   position:fixed;
-  top:18px;
+  top:12vh;                         /* MÁS CERCA DEL SOBRE */
   left:50%;
   transform:translateX(-50%) translateY(-8px);
   background:rgba(247,243,235,0.97);
@@ -542,7 +541,6 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     <div class="btn-row">
       <a class="btn" href="https://open.spotify.com/playlist/1yQ3SckD5XpexViWkWlKaM?si=aDaSsL2XQLCMd1_Hu7b5EQ&pt=0159e6b67ea4798975a1434a2defb59f&pi=JQW0VZKtSmCt8" target="_blank" rel="noopener">Abrir Playlist</a>
     </div>
-    <!-- Embed de Spotify -->
     <div style="margin-top:1rem;">
       <iframe data-testid="embed-iframe" style="border-radius:12px"
         src="https://open.spotify.com/embed/playlist/1yQ3SckD5XpexViWkWlKaM?utm_source=generator"
@@ -588,6 +586,15 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     <div class="playlist-note">¡Déjanos esos recuerdos que guardaste! ❤️</div>
     <div class="btn-row">
       <a class="btn" href="https://photos.app.goo.gl/pQUvTaAAmQ6N3KvNA" target="_blank" rel="noopener">Sube tus fotos</a>
+    </div>
+    <!-- Vista embebida del álbum (como Spotify) -->
+    <div style="margin-top:1rem;">
+      <iframe
+        style="border-radius:12px; border:1px solid rgba(0,0,0,0.05);"
+        src="https://photos.app.goo.gl/pQUvTaAAmQ6N3KvNA"
+        width="100%" height="360" frameborder="0"
+        loading="lazy">
+      </iframe>
     </div>
   </section>
 
@@ -656,9 +663,13 @@ if (claveInput){
   });
 }
 
+// Scroll con offset para que no se corte el hero
 function scrollToInvite(){
   const hero = document.getElementById('hero');
-  hero.scrollIntoView({behavior:'smooth', block:'start'});
+  const rect = hero.getBoundingClientRect();
+  const offset = 40; // px extra de margen arriba
+  const y = rect.top + window.pageYOffset - offset;
+  window.scrollTo({top:y, behavior:'smooth'});
 }
 
 function realizarApertura(){
@@ -691,6 +702,7 @@ if (openBtn) openBtn.addEventListener('click', openInvite);
 if (sealImg) sealImg.addEventListener('click', openInvite);
 env.addEventListener('keypress', (e)=>{ if(e.key==='Enter'||e.key===' '){ openInvite(); } });
 
+// Mostrar hint al cargar
 window.addEventListener('load', ()=>{
   if (envelopeHint){
     envelopeHint.classList.add('show');
