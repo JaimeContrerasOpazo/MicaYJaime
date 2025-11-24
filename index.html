@@ -19,9 +19,9 @@
   --outline:#d9c9af; --text:#5b5a4f;
 
   /* Sello de cera, tonos que combinan con tu paleta */
-  --wax:#b8864a;       /* cera dorada-ámbar */
-  --wax-dark:#8d6533;  /* borde cobre envejecido */
-  --wax-light:#e2b979; /* reflejo claro */
+  --wax:#b8864a;
+  --wax-dark:#8d6533;
+  --wax-light:#e2b979;
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -73,26 +73,24 @@ body.opened .bg-floral{opacity:0;}
   filter: drop-shadow(0 14px 34px rgba(0,0,0,.16));
   border-radius:16px;
 }
-/* Cuerpo de sobre tipo kraft */
 .envelope .base{
   position:absolute;inset:0;border-radius:16px;
   background:linear-gradient(to bottom,#caa97a,#b99569 48%,#b99569 52%,#b38e63);
 }
-.envelope .base::before{ /* textura liviana */
+.envelope .base::before{
   content:"";position:absolute;inset:0;border-radius:16px;
   background:repeating-linear-gradient(0deg, rgba(255,255,255,.05), rgba(255,255,255,.05) 2px, transparent 2px, transparent 4px);
   mix-blend-mode:overlay;opacity:.35;pointer-events:none;
 }
-/* Solapa triangular */
 .envelope .flap{
   position:absolute;
   inset:0 0 50% 0;
   background:linear-gradient(
     to bottom,
-    #e2c8a3 0%,     /* parte superior clara, como luz directa */
-    #c49b6a 45%,    /* tono medio cálido */
-    #a87948 75%,    /* transición cobre más fuerte */
-    #8f6336 100%    /* borde inferior oscuro */
+    #e2c8a3 0%,
+    #c49b6a 45%,
+    #a87948 75%,
+    #8f6336 100%
   );
   clip-path:polygon(0 0,100% 0,50% 100%);
   transform-origin:top;
@@ -100,7 +98,7 @@ body.opened .bg-floral{opacity:0;}
   filter:drop-shadow(0 4px 12px rgba(0,0,0,.18));
 }
 
-/* —— SELLO DE CERA centrado en la junta —— */
+/* —— SELLO DE CERA —— */
 .seal-wrap{
   position:absolute;
   left:50%; top:50%;
@@ -121,7 +119,7 @@ body.opened .bg-floral{opacity:0;}
               0 10px 22px rgba(0,0,0,.25);
   transition: transform .6s ease, opacity .6s ease;
 }
-.wax-seal::before{ /* gotas irregulares */
+.wax-seal::before{
   content:""; position:absolute; left:50%; top:50%;
   transform:translate(-50%,-50%); width:10px; height:10px; border-radius:50%;
   background:var(--wax);
@@ -136,7 +134,6 @@ body.opened .bg-floral{opacity:0;}
   filter:drop-shadow(0 3px 6px rgba(0,0,0,.18));
   transition: transform .6s ease, opacity .6s ease, filter .6s ease;
 }
-/* Frase debajo de la junta — BLANCO */
 .envelope .paper-note{
   position:absolute; left:0; right:0; top:72%;
   text-align:center; pointer-events:none;
@@ -157,18 +154,15 @@ body.opened .bg-floral{opacity:0;}
   .envelope{ aspect-ratio: 4/3; }
   #sealImg{ width:84px; height:84px; }
   .wax-seal{ width:96px; height:96px; }
-
-  /* 🔽 Mueve el texto más abajo del sello en celular */
   .envelope .paper-note{
-    top:78%;               /* antes estaba 74% */
+    top:78%;
     font-size:1.1rem;
   }
-
   .btn{ font-size:.8rem; padding:8px 12px; }
   .btn-row{ margin-top:28px; }
 }
 
-/* Cards contenedor */
+/* Cards */
 .wrap{width:min(920px,96vw);margin:0 auto;padding:2rem 1rem 1.2rem;position:relative;z-index:1;}
 .card{
   background:var(--crema);
@@ -197,8 +191,6 @@ body.opened .bg-floral{opacity:0;}
 .hero .actions{margin-top:.5rem;display:flex;justify-content:center;flex-wrap:wrap;gap:8px;}
 
 /* Collage */
-/* Collage — versión mejorada sin huecos */
-/* ==== Collage elegante con fotos destacadas ==== */
 .collage {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -206,8 +198,6 @@ body.opened .bg-floral{opacity:0;}
   gap: 8px;
   margin-top: 1.2rem;
 }
-
-/* Fotos normales */
 .collage img {
   width: 100%;
   height: 100%;
@@ -216,14 +206,10 @@ body.opened .bg-floral{opacity:0;}
   box-shadow: 0 3px 8px rgba(0,0,0,0.1);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-
-/* Hover */
 .collage img:hover {
   transform: scale(1.03);
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
-
-/* Fotos destacadas para dinamismo */
 .collage img.big {
   grid-column: span 2;
   grid-row: span 2;
@@ -234,7 +220,6 @@ body.opened .bg-floral{opacity:0;}
 .collage img.wide {
   grid-column: span 2;
 }
-
 @media (max-width: 700px) {
   .collage {
     grid-template-columns: repeat(2, 1fr);
@@ -259,7 +244,7 @@ body.opened .bg-floral{opacity:0;}
 .dresscode .color{display:flex;flex-direction:column;align-items:center;font-size:.95rem;min-width:120px;}
 .dresscode .circle{width:44px;height:44px;border-radius:50%;margin-bottom:6px;box-shadow:0 2px 5px rgba(0,0,0,0.1);border:1px solid #d2c7b8;}
 .swatches{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-top:10px;}
-.swatch{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:92px;}
+.swatch{display:flex;flex-direction:column;alignitems:center;gap:6px;min-width:92px;}
 .swatch .chip{width:38px;height:38px;border-radius:50%;box-shadow:0 2px 5px rgba(0,0,0,.08);border:1px solid #d8d0c3;}
 @media(max-width:600px){.dresscode .color-restrictions{gap:20px;}.dresscode .circle{width:36px;height:36px;} .swatch{min-width:84px;}}
 
@@ -301,7 +286,7 @@ body.opened .bg-floral{opacity:0;}
 
 footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
 
-/* ===== MODAL CLAVE ELEGANTE ===== */
+/* ===== MODAL CLAVE ===== */
 .clave-modal-backdrop{
   position:fixed;
   inset:0;
@@ -356,11 +341,34 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
   font-size:.85rem;
   padding:7px 16px;
 }
+
+/* HINT "HAZ CLICK EN EL BOTÓN DEL SOBRE" */
+.envelope-hint{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%) translateY(-8px);
+  background:rgba(247,243,235,0.97);
+  border-radius:999px;
+  border:1px solid var(--dorado);
+  padding:8px 18px;
+  font-size:.9rem;
+  color:var(--cobre);
+  box-shadow:0 6px 16px rgba(0,0,0,.18);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .5s ease, transform .5s ease;
+  z-index:30;
+}
+.envelope-hint.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
 </style>
 </head>
 <body>
 
-<!-- Modal clave (INGRESAR clave, no mostrarla) -->
+<!-- Modal clave -->
 <div id="claveModalBackdrop" class="clave-modal-backdrop" aria-hidden="true">
   <div class="clave-modal" role="dialog" aria-modal="true" aria-labelledby="claveTitle">
     <div style="font-size:1.9rem; margin-bottom:.35rem;">🔐</div>
@@ -369,6 +377,11 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     <input type="password" id="claveInput" inputmode="numeric" autocomplete="off" placeholder="••••••••" />
     <button class="btn" type="button" onclick="validarClave()">Ingresar 😅</button>
   </div>
+</div>
+
+<!-- Mensaje flotante -->
+<div id="envelopeHint" class="envelope-hint">
+  Haz click en el botón del sobre 💌
 </div>
 
 <!-- Fondo floral -->
@@ -380,18 +393,15 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
       <div class="base"></div>
       <div class="flap"></div>
 
-      <!-- Junta bien marcada -->
       <div class="crease"></div>
       <div class="side-crease left"></div>
       <div class="side-crease right"></div>
 
-      <!-- Sello de cera + broche centrado en la junta -->
       <div class="seal-wrap">
         <div class="wax-seal"></div>
         <img id="sealImg" src="Broche.png" alt="Broche M·J" />
       </div>
 
-      <!-- Frase sobre el kraft (blanca) -->
       <div class="paper-note">¡Queremos compartir este momento contigo!</div>
     </div>
   </div>
@@ -434,7 +444,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     </div>
   </section>
 
-  <!-- Itinerario (sin duplicados) -->
+  <!-- Itinerario -->
   <section class="card itinerary fade-in">
     <div class="title">Itinerario</div>
     <ul class="timeline">
@@ -505,7 +515,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
   <!-- Lista de regalos -->
   <section class="card fade-in">
     <div class="title">Acá nos puedes dejar un regalo! 😊🎁</div>
-    <div class="playlist-note"> <strong>Tu presencia es lo más importante</strong>, pero si quieres dejarnos un detalle, aquí encontrarás nuestra lista de deseos o nuestros datos bancarios.</div>
+    <div class="playlist-note"><strong>Tu presencia es lo más importante</strong>, pero si quieres dejarnos un detalle, aquí encontrarás nuestra lista de deseos o nuestros datos bancarios.</div>
     <div class="btn-row">
       <a class="btn" href="https://novios.falabella.com/info-evento/evento?codigoEvento=2100121" target="_blank" rel="noopener">Lista de Deseos</a>
       <a class="btn" href="Datos_regalo_Mica_Jaime.pdf" target="_blank" rel="noopener">Datos Bancarios</a>
@@ -531,6 +541,16 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     <div class="playlist-note">Comparte la canción que <strong>no debe faltar</strong> en la fiesta.</div>
     <div class="btn-row">
       <a class="btn" href="https://open.spotify.com/playlist/1yQ3SckD5XpexViWkWlKaM" target="_blank" rel="noopener">Abrir Playlist</a>
+    </div>
+    <!-- Embed de Spotify -->
+    <div style="margin-top:1rem;">
+      <iframe data-testid="embed-iframe" style="border-radius:12px"
+        src="https://open.spotify.com/embed/playlist/1yQ3SckD5XpexViWkWlKaM?utm_source=generator"
+        width="100%" height="352" frameborder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy">
+      </iframe>
     </div>
   </section>
 
@@ -558,7 +578,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     <div class="title">¡Save the date! 📅</div>
     <div class="playlist-note">Agregar al calendario (Google, iOS, Outlook)</div>
     <div class="btn-row">
-      <a class="btn" href="Matri Jaime&Mica - Casona Macul.ics">Agregar al calendario</a>
+      <a class="btn" href="Matri Mica&Jaime - Casona Macul.ics">Agregar al calendario</a>
     </div>
   </section>
 
@@ -571,20 +591,23 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     </div>
   </section>
 
-  <footer class="fade-in">Con amor, Jaime & Mica · 2025 · Hecho por el novio en sus vacaciones y aprobado por la novia 😅😬 PD: La novia ordenó los nombres por ordén alfabético  </footer>
+  <footer class="fade-in">Con amor, Jaime & Mica · 2025 · Hecho por el novio en sus vacaciones y aprobado por la novia 😅😬 · La novia ordenó los nombres por orden alfabético</footer>
 </main>
 
 <script>
 const body = document.body;
 const env  = document.getElementById('envelope');
 const app  = document.getElementById('app');
-const openBtn = document.getElementById('openBtn'); // por si luego activas un botón
-const sealImg = document.getElementById('sealImg');  // broche sobre la junta
+const openBtn = document.getElementById('openBtn');
+const sealImg = document.getElementById('sealImg');
 
 // Modal clave
 const claveModalBackdrop = document.getElementById('claveModalBackdrop');
 const claveInput = document.getElementById('claveInput');
 let accesoConcedido = false;
+
+// Hint
+const envelopeHint = document.getElementById('envelopeHint');
 
 function showClaveModal(){
   if (!claveModalBackdrop) return;
@@ -602,7 +625,6 @@ function hideClaveModal(){
   claveModalBackdrop.setAttribute('aria-hidden','true');
 }
 
-// Cerrar si hacen clic fuera del cuadro
 if (claveModalBackdrop){
   claveModalBackdrop.addEventListener('click', (e)=>{
     if (e.target === claveModalBackdrop){
@@ -611,7 +633,7 @@ if (claveModalBackdrop){
   });
 }
 
-// Validar clave: 21032026
+// Validar clave
 function validarClave(){
   if (!claveInput) return;
   const val = (claveInput.value || "").trim();
@@ -626,7 +648,6 @@ function validarClave(){
   }
 }
 
-// Enter en input también valida
 if (claveInput){
   claveInput.addEventListener('keypress', (e)=>{
     if (e.key === 'Enter'){
@@ -641,8 +662,11 @@ function scrollToInvite(){
 }
 
 function realizarApertura(){
+  if (envelopeHint){
+    envelopeHint.classList.remove('show');
+  }
   env.classList.add('open');
-  body.classList.add('opened'); // crossfade del fondo floral
+  body.classList.add('opened');
   setTimeout(()=>{
     app.classList.remove('hidden');
     const cards=document.querySelectorAll('.card,.hero,footer');
@@ -652,6 +676,9 @@ function realizarApertura(){
 }
 
 function openInvite(){
+  if (envelopeHint){
+    envelopeHint.classList.remove('show');
+  }
   if (!accesoConcedido){
     showClaveModal();
     return;
@@ -664,7 +691,16 @@ if (openBtn) openBtn.addEventListener('click', openInvite);
 if (sealImg) sealImg.addEventListener('click', openInvite);
 env.addEventListener('keypress', (e)=>{ if(e.key==='Enter'||e.key===' '){ openInvite(); } });
 
-// ===== Countdown (21/03/2026 16:00 CL) =====
+window.addEventListener('load', ()=>{
+  if (envelopeHint){
+    envelopeHint.classList.add('show');
+    setTimeout(()=>{
+      envelopeHint.classList.remove('show');
+    }, 6000);
+  }
+});
+
+// Countdown
 const ddEl = document.getElementById('dd');
 const hhEl = document.getElementById('hh');
 const mmEl = document.getElementById('mm');
