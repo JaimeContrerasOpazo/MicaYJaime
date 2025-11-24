@@ -18,9 +18,10 @@
   --dorado:#CBA979; --crema:#f7f3eb; --fondo:#f5e9d4;
   --outline:#d9c9af; --text:#5b5a4f;
 
-  --wax:#b8864a;
-  --wax-dark:#8d6533;
-  --wax-light:#e2b979;
+  /* Sello de cera, tonos que combinan con tu paleta */
+  --wax:#b8864a;       /* cera dorada-ámbar */
+  --wax-dark:#8d6533;  /* borde cobre envejecido */
+  --wax-light:#e2b979; /* reflejo claro */
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -72,24 +73,26 @@ body.opened .bg-floral{opacity:0;}
   filter: drop-shadow(0 14px 34px rgba(0,0,0,.16));
   border-radius:16px;
 }
+/* Cuerpo de sobre tipo kraft */
 .envelope .base{
   position:absolute;inset:0;border-radius:16px;
   background:linear-gradient(to bottom,#caa97a,#b99569 48%,#b99569 52%,#b38e63);
 }
-.envelope .base::before{
+.envelope .base::before{ /* textura liviana */
   content:"";position:absolute;inset:0;border-radius:16px;
   background:repeating-linear-gradient(0deg, rgba(255,255,255,.05), rgba(255,255,255,.05) 2px, transparent 2px, transparent 4px);
   mix-blend-mode:overlay;opacity:.35;pointer-events:none;
 }
+/* Solapa triangular */
 .envelope .flap{
   position:absolute;
   inset:0 0 50% 0;
   background:linear-gradient(
     to bottom,
-    #e2c8a3 0%,
-    #c49b6a 45%,
-    #a87948 75%,
-    #8f6336 100%
+    #e2c8a3 0%,     /* parte superior clara, como luz directa */
+    #c49b6a 45%,    /* tono medio cálido */
+    #a87948 75%,    /* transición cobre más fuerte */
+    #8f6336 100%    /* borde inferior oscuro */
   );
   clip-path:polygon(0 0,100% 0,50% 100%);
   transform-origin:top;
@@ -118,7 +121,7 @@ body.opened .bg-floral{opacity:0;}
               0 10px 22px rgba(0,0,0,.25);
   transition: transform .6s ease, opacity .6s ease;
 }
-.wax-seal::before{
+.wax-seal::before{ /* gotas irregulares */
   content:""; position:absolute; left:50%; top:50%;
   transform:translate(-50%,-50%); width:10px; height:10px; border-radius:50%;
   background:var(--wax);
@@ -133,6 +136,7 @@ body.opened .bg-floral{opacity:0;}
   filter:drop-shadow(0 3px 6px rgba(0,0,0,.18));
   transition: transform .6s ease, opacity .6s ease, filter .6s ease;
 }
+/* Frase debajo de la junta — BLANCO */
 .envelope .paper-note{
   position:absolute; left:0; right:0; top:72%;
   text-align:center; pointer-events:none;
@@ -153,10 +157,13 @@ body.opened .bg-floral{opacity:0;}
   .envelope{ aspect-ratio: 4/3; }
   #sealImg{ width:84px; height:84px; }
   .wax-seal{ width:96px; height:96px; }
+
+  /* 🔽 Mueve el texto más abajo del sello en celular */
   .envelope .paper-note{
-    top:78%;
+    top:78%;               /* antes estaba 74% */
     font-size:1.1rem;
   }
+
   .btn{ font-size:.8rem; padding:8px 12px; }
   .btn-row{ margin-top:28px; }
 }
@@ -190,6 +197,8 @@ body.opened .bg-floral{opacity:0;}
 .hero .actions{margin-top:.5rem;display:flex;justify-content:center;flex-wrap:wrap;gap:8px;}
 
 /* Collage */
+/* Collage — versión mejorada sin huecos */
+/* ==== Collage elegante con fotos destacadas ==== */
 .collage {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -197,6 +206,8 @@ body.opened .bg-floral{opacity:0;}
   gap: 8px;
   margin-top: 1.2rem;
 }
+
+/* Fotos normales */
 .collage img {
   width: 100%;
   height: 100%;
@@ -205,10 +216,14 @@ body.opened .bg-floral{opacity:0;}
   box-shadow: 0 3px 8px rgba(0,0,0,0.1);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+
+/* Hover */
 .collage img:hover {
   transform: scale(1.03);
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
+
+/* Fotos destacadas para dinamismo */
 .collage img.big {
   grid-column: span 2;
   grid-row: span 2;
@@ -219,6 +234,7 @@ body.opened .bg-floral{opacity:0;}
 .collage img.wide {
   grid-column: span 2;
 }
+
 @media (max-width: 700px) {
   .collage {
     grid-template-columns: repeat(2, 1fr);
@@ -364,15 +380,18 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
       <div class="base"></div>
       <div class="flap"></div>
 
+      <!-- Junta bien marcada -->
       <div class="crease"></div>
       <div class="side-crease left"></div>
       <div class="side-crease right"></div>
 
+      <!-- Sello de cera + broche centrado en la junta -->
       <div class="seal-wrap">
         <div class="wax-seal"></div>
         <img id="sealImg" src="Broche.png" alt="Broche M·J" />
       </div>
 
+      <!-- Frase sobre el kraft (blanca) -->
       <div class="paper-note">¡Queremos compartir este momento contigo!</div>
     </div>
   </div>
@@ -415,7 +434,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     </div>
   </section>
 
-  <!-- Itinerario -->
+  <!-- Itinerario (sin duplicados) -->
   <section class="card itinerary fade-in">
     <div class="title">Itinerario</div>
     <ul class="timeline">
@@ -451,6 +470,32 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     </ul>
   </section>
 
+  <!-- Dresscode -->
+  <section class="card dresscode fade-in">
+    <div class="title">Código de vestimenta 👔✨</div>
+    <p>Formal elegante 🌹 — Gala o semi gala.<br>Evita los colores reservados:</p>
+
+    <div class="title" style="font-size:1.3rem;margin-top:.6rem;color:var(--verde)">Tonos reservados corbata novio</div>
+    <div class="swatches">
+      <div class="color">
+        <div class="circle" style="background-color:#800020;border-color:#5d0016;"></div>
+        <span>Burdeo</span>
+      </div>
+    </div>
+
+    <div class="title" style="font-size:1.3rem;margin-top:.6rem;color:var(--verde)">Tonos reservados para la novia</div>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:#fffaf2;"></div><span>Blanco</span></div>
+      <div class="swatch"><div class="chip" style="background:#fbf1de;"></div><span>Champagne</span></div>
+      <div class="swatch"><div class="chip" style="background:#f6ead3;"></div><span>Marfil</span></div>
+      <div class="swatch"><div class="chip" style="background:#efe3c9;"></div><span>Crema</span></div>
+      <div class="swatch"><div class="chip" style="background:#e8dbc0;"></div><span>Arena</span></div>
+      <div class="swatch"><div class="chip" style="background:#decfb1;"></div><span>Café claro</span></div>
+    </div>
+
+    <p style="opacity:.85;font-size:.95rem;margin-top:.6rem;">(El tono claro se reserva para la novia, y el burdeo en corbata para el novio 💒)</p>
+  </section>
+
   <!-- Solo adultos -->
   <section class="card fade-in">
     <div class="title">Solo adultos 🕺💃</div>
@@ -460,9 +505,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
   <!-- Lista de regalos -->
   <section class="card fade-in">
     <div class="title">Acá nos puedes dejar un regalo! 😊🎁</div>
-    <div class="playlist-note">
-      <strong>Tu presencia es lo más importante</strong>, pero si quieres dejarnos un detalle, aquí encontrarás nuestra lista de deseos o nuestros datos bancarios.
-    </div>
+    <div class="playlist-note"> <strong>Tu presencia es lo más importante</strong>, pero si quieres dejarnos un detalle, aquí encontrarás nuestra lista de deseos o nuestros datos bancarios.</div>
     <div class="btn-row">
       <a class="btn" href="https://novios.falabella.com/info-evento/evento?codigoEvento=2100121" target="_blank" rel="noopener">Lista de Deseos</a>
       <a class="btn" href="Datos_regalo_Mica_Jaime.pdf" target="_blank" rel="noopener">Datos Bancarios</a>
@@ -494,10 +537,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
   <!-- Confirmación -->
   <section class="card fade-in">
     <div class="title">¿Vendrás? 💌</div>
-    <div class="playlist-note">
-      Si te invitamos con pareja, por favor completa el formulario una vez por cada uno.
-      <strong>Plazo Máximo para completar: 21.02.2026</strong> ¡Gracias!
-    </div>
+    <div class="playlist-note">Si te invitamos con pareja, por favor completa el formulario una vez por cada uno. <strong>Plazo Máximo para completar: 21.02.2026</strong> ¡Gracias!</div>
     <div class="btn-row">
       <a class="btn" href="https://forms.gle/tsauL7QgjHBVs5Ye6" target="_blank" rel="noopener">Confirmar aquí</a>
     </div>
@@ -531,17 +571,15 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     </div>
   </section>
 
-  <footer class="fade-in">
-    Con amor, Jaime & Mica · 2025 · Hecho por el novio en sus vacaciones y aprobado por la novia 😅😬 · La novia ordenó los nombres por ordén alfabético.
-  </footer>
+  <footer class="fade-in">Con amor, Jaime & Mica · 2025 · Hecho por el novio en sus vacaciones y aprobado por la novia 😅😬 PD: La novia ordenó los nombres por ordén alfabético  </footer>
 </main>
 
 <script>
 const body = document.body;
 const env  = document.getElementById('envelope');
 const app  = document.getElementById('app');
-const openBtn = document.getElementById('openBtn');
-const sealImg = document.getElementById('sealImg');
+const openBtn = document.getElementById('openBtn'); // por si luego activas un botón
+const sealImg = document.getElementById('sealImg');  // broche sobre la junta
 
 // Modal clave
 const claveModalBackdrop = document.getElementById('claveModalBackdrop');
@@ -564,7 +602,7 @@ function hideClaveModal(){
   claveModalBackdrop.setAttribute('aria-hidden','true');
 }
 
-// cerrar clickeando fuera
+// Cerrar si hacen clic fuera del cuadro
 if (claveModalBackdrop){
   claveModalBackdrop.addEventListener('click', (e)=>{
     if (e.target === claveModalBackdrop){
@@ -588,7 +626,7 @@ function validarClave(){
   }
 }
 
-// enter en input
+// Enter en input también valida
 if (claveInput){
   claveInput.addEventListener('keypress', (e)=>{
     if (e.key === 'Enter'){
@@ -604,7 +642,7 @@ function scrollToInvite(){
 
 function realizarApertura(){
   env.classList.add('open');
-  body.classList.add('opened');
+  body.classList.add('opened'); // crossfade del fondo floral
   setTimeout(()=>{
     app.classList.remove('hidden');
     const cards=document.querySelectorAll('.card,.hero,footer');
