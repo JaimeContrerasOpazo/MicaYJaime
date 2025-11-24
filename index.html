@@ -177,7 +177,7 @@ body.opened .bg-floral{opacity:0;}
 .title-emoji{font-size:1.4rem; margin-top:.2rem;}
 
 /* HERO */
-#hero{ scroll-margin-top:40px; } /* más margen para que no se corte */
+#hero{ scroll-margin-top:40px; } /* margen para que no se corte arriba */
 .hero{color:var(--verde);}
 .hero .script{font-family:'Great Vibes',cursive;font-size:2rem;color:var(--cobre);}
 .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5.5vw,3rem);color:var(--dorado);margin:.35rem 0;}
@@ -344,7 +344,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
 /* HINT "HAZ CLICK EN EL BOTÓN DEL SOBRE" */
 .envelope-hint{
   position:fixed;
-  top:12vh;                         /* MÁS CERCA DEL SOBRE */
+  top:12vh; /* más cerca del sobre */
   left:50%;
   transform:translateX(-50%) translateY(-8px);
   background:rgba(247,243,235,0.97);
@@ -587,15 +587,7 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     <div class="btn-row">
       <a class="btn" href="https://photos.app.goo.gl/pQUvTaAAmQ6N3KvNA" target="_blank" rel="noopener">Sube tus fotos</a>
     </div>
-    <!-- Vista embebida del álbum (como Spotify) -->
-    <div style="margin-top:1rem;">
-      <iframe
-        style="border-radius:12px; border:1px solid rgba(0,0,0,0.05);"
-        src="https://photos.app.goo.gl/pQUvTaAAmQ6N3KvNA"
-        width="100%" height="360" frameborder="0"
-        loading="lazy">
-      </iframe>
-    </div>
+    <!-- ya sin iframe embebido de Google Photos -->
   </section>
 
   <footer class="fade-in">Con amor, Jaime & Mica · 2025 · Hecho por el novio en sus vacaciones y aprobado por la novia 😅😬 · La novia ordenó los nombres por orden alfabético</footer>
@@ -663,13 +655,11 @@ if (claveInput){
   });
 }
 
-// Scroll con offset para que no se corte el hero
+// Scroll hacia el hero (con scroll-margin-top en CSS para que no se corte)
 function scrollToInvite(){
   const hero = document.getElementById('hero');
-  const rect = hero.getBoundingClientRect();
-  const offset = 40; // px extra de margen arriba
-  const y = rect.top + window.pageYOffset - offset;
-  window.scrollTo({top:y, behavior:'smooth'});
+  if (!hero) return;
+  hero.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 function realizarApertura(){
