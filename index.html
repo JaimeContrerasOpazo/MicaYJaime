@@ -243,6 +243,8 @@ body.opened .bg-floral{opacity:0;}
 .dresscode .color-restrictions{display:flex;justify-content:center;gap:30px;margin:1rem 0;flex-wrap:wrap;}
 .dresscode .color{display:flex;flex-direction:column;align-items:center;font-size:.95rem;min-width:120px;}
 .dresscode .circle{width:44px;height:44px;border-radius:50%;margin-bottom:6px;box-shadow:0 2px 5px rgba(0,0,0,0.1);border:1px solid #d2c7b8;}
+.dresscode .circle{width:44px;height:44px;border-radius:50%;}
+.dresscode .circle{width:44px;height:44px;border-radius:50%;}
 .swatches{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-top:10px;}
 .swatch{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:92px;}
 .swatch .chip{width:38px;height:38px;border-radius:50%;box-shadow:0 2px 5px rgba(0,0,0,.08);border:1px solid #d8d0c3;}
@@ -286,62 +288,6 @@ body.opened .bg-floral{opacity:0;}
 
 footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
 
-/* ===== MODAL CLAVE ===== */
-.clave-modal-backdrop{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.45);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:50;
-}
-.clave-modal-backdrop.show{
-  display:flex;
-  animation:fadeIn .3s ease;
-}
-.clave-modal{
-  background:var(--crema);
-  border-radius:18px;
-  border:1px solid var(--dorado);
-  box-shadow:0 16px 40px rgba(0,0,0,.35);
-  padding:22px 20px 18px;
-  max-width:320px;
-  width:85%;
-  text-align:center;
-}
-.clave-modal h3{
-  font-family:'Playfair Display',serif;
-  font-size:1.3rem;
-  color:var(--cobre);
-  margin-bottom:.35rem;
-}
-.clave-modal .clave-sub{
-  font-size:.9rem;
-  opacity:.85;
-  margin-bottom:.8rem;
-}
-.clave-modal input{
-  width:100%;
-  padding:8px 10px;
-  border-radius:10px;
-  border:1px solid var(--outline);
-  margin-bottom:1rem;
-  font-size:.95rem;
-  text-align:center;
-  letter-spacing:.18em;
-  background:#fdf9f2;
-}
-.clave-modal input:focus{
-  outline:none;
-  border-color:var(--dorado);
-  box-shadow:0 0 0 2px rgba(203,169,121,0.45);
-}
-.clave-modal .btn{
-  font-size:.85rem;
-  padding:7px 16px;
-}
-
 /* HINT "HAZ CLICK EN EL BOTÓN DEL SOBRE" – SIEMPRE UNA LÍNEA */
 .envelope-hint{
   position:fixed;
@@ -374,17 +320,6 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
 </style>
 </head>
 <body>
-
-<!-- Modal clave -->
-<div id="claveModalBackdrop" class="clave-modal-backdrop" aria-hidden="true">
-  <div class="clave-modal" role="dialog" aria-modal="true" aria-labelledby="claveTitle">
-    <div style="font-size:1.9rem; margin-bottom:.35rem;">🔐</div>
-    <h3 id="claveTitle">Clave de acceso</h3>
-    <p class="clave-sub">Ingresa la clave que aparece en tu invitación.</p>
-    <input type="password" id="claveInput" inputmode="numeric" autocomplete="off" placeholder="••••" />
-    <button class="btn" type="button" onclick="validarClave()">Ingresar 😅</button>
-  </div>
-</div>
 
 <!-- Mensaje flotante -->
 <div id="envelopeHint" class="envelope-hint">
@@ -607,60 +542,8 @@ const app  = document.getElementById('app');
 const openBtn = document.getElementById('openBtn');
 const sealImg = document.getElementById('sealImg');
 
-// Modal clave
-const claveModalBackdrop = document.getElementById('claveModalBackdrop');
-const claveInput = document.getElementById('claveInput');
-let accesoConcedido = false;
-
 // Hint
 const envelopeHint = document.getElementById('envelopeHint');
-
-function showClaveModal(){
-  if (!claveModalBackdrop) return;
-  claveModalBackdrop.classList.add('show');
-  claveModalBackdrop.setAttribute('aria-hidden','false');
-  if (claveInput){
-    claveInput.value = "";
-    setTimeout(()=>claveInput.focus(), 80);
-  }
-}
-
-function hideClaveModal(){
-  if (!claveModalBackdrop) return;
-  claveModalBackdrop.classList.remove('show');
-  claveModalBackdrop.setAttribute('aria-hidden','true');
-}
-
-if (claveModalBackdrop){
-  claveModalBackdrop.addEventListener('click', (e)=>{
-    if (e.target === claveModalBackdrop){
-      hideClaveModal();
-    }
-  });
-}
-
-// Validar clave: AHORA 2103
-function validarClave(){
-  if (!claveInput) return;
-  const val = (claveInput.value || "").trim();
-  if (val === "2103"){
-    accesoConcedido = true;
-    hideClaveModal();
-    realizarApertura();
-  }else{
-    alert("Clave incorrecta. Por favor revisa la invitación.");
-    claveInput.value = "";
-    claveInput.focus();
-  }
-}
-
-if (claveInput){
-  claveInput.addEventListener('keypress', (e)=>{
-    if (e.key === 'Enter'){
-      validarClave();
-    }
-  });
-}
 
 function scrollToInvite(){
   const hero = document.getElementById('hero');
@@ -681,7 +564,6 @@ function realizarApertura(){
     const cards=document.querySelectorAll('.card,.hero,footer');
     cards.forEach((c,i)=>{c.style.animationDelay=(i*0.25)+'s';});
 
-    // pequeño delay extra para asegurar que el DOM se pinte
     setTimeout(()=>{
       scrollToInvite();
     }, 50);
@@ -692,10 +574,6 @@ function realizarApertura(){
 function openInvite(){
   if (envelopeHint){
     envelopeHint.classList.remove('show');
-  }
-  if (!accesoConcedido){
-    showClaveModal();
-    return;
   }
   realizarApertura();
 }
