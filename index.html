@@ -473,27 +473,47 @@ footer{text-align:center;font-size:.9rem;opacity:.75;margin:18px 0 10px;}
     </div>
   </section>
 
-  <!-- Playlist -->
-  <section class="card fade-in">
-    <div class="title">Canción infaltable 🎵</div>
-    <div class="playlist-note">Comparte la canción que <strong>no debe faltar</strong> en la fiesta.</div>
-    <div class="btn-row">
-      <!-- CORREGIDO: link estable sin parámetros que caducan -->
-      <a class="btn" href="https://open.spotify.com/playlist/1yQ3SckD5XpexViWkWlKaM?si=7f77edbdbfc34661&pt=ecceadb8993185fab823cba1802d653a" target="_blank" rel="noopener">Abrir Playlist</a>
+<!-- Playlist -->
+<section class="card fade-in">
+  <div class="title">Canción infaltable 🎵</div>
+  <div class="playlist-note">
+    Comparte la canción que <strong>no debe faltar</strong> en la fiesta.
+  </div>
 
-      <!-- OPCIONAL (recomendado): botón para saltar al embed en la misma página -->
-      <a class="btn" href="#playlist-embed">Escuchar aquí</a>
-    </div>
+  <div class="btn-row">
+    <!-- LINK COLABORATIVO (CADUCA, ESTE ES EL QUE ACABAS DE GENERAR) -->
+    <a class="btn"
+       href="https://open.spotify.com/playlist/1yQ3SckD5XpexViWkWlKaM?si=6f6f10222b9e411f&pt=fbea9bb2421e1782f3975098bda72ade"
+       target="_blank" rel="noopener">
+      ➕ Agregar canción a la playlist
+    </a>
 
-    <div id="playlist-embed" style="margin-top:1rem;">
-      <iframe data-testid="embed-iframe" style="border-radius:12px"
-        src="https://open.spotify.com/embed/playlist/1yQ3SckD5XpexViWkWlKaM?utm_source=generator"
-        width="100%" height="352" frameborder="0"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy">
-      </iframe>
-    </div>
-  </section>
+    <!-- LINK ESTABLE (NO CADUCA) -->
+    <a class="btn"
+       href="https://open.spotify.com/playlist/1yQ3SckD5XpexViWkWlKaM"
+       target="_blank" rel="noopener">
+      🎧 Escuchar playlist
+    </a>
+  </div>
+
+  <!-- EMBED (SOLO PARA ESCUCHAR, NUNCA CADUCA) -->
+  <div id="playlist-embed" style="margin-top:1rem;">
+    <iframe
+      style="border-radius:12px"
+      src="https://open.spotify.com/embed/playlist/1yQ3SckD5XpexViWkWlKaM"
+      width="100%" height="352"
+      frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <div class="playlist-note" style="font-size:.9rem;opacity:.8;margin-top:.6rem;">
+    💡 El botón para <strong>agregar canciones</strong> puede vencer.  
+    Si no funciona, avísanos y lo renovamos.
+  </div>
+</section>
+
 
   <!-- Confirmación -->
   <section class="card fade-in">
